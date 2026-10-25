@@ -89,7 +89,7 @@ const HERO_SLIDES = [
   {
     type: "video",
     // ⭐ PC용 영상: 가로형 MP4를 넣을 경우 파일명만 수정하세요.
-    pc: "",
+    pc: "images/main-video-pc.mp4",
     // ⭐ 모바일용 영상: 첨부해주신 15초 세로 영상을 사용합니다.
     mobile: "images/main-video-mobile.mp4",
     // ⭐ PC용 영상이 없을 때 대신 보여줄 PC 이미지
