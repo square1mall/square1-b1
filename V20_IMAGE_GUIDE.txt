@@ -1,0 +1,17 @@
+THE GREAT SQUARE1 B1 V20 이미지 정리
+
+이벤트 카드 썸네일:
+- event01-thumb.jpg
+- event02-thumb.jpg
+- event03-thumb.jpg
+
+이벤트 상세 이미지:
+- event01.jpg
+- event02.jpg
+- event03.jpg
+
+이벤트 카드 클릭 → 각각의 상세 페이지로 연결됩니다.
+상세 이미지는 원본 비율을 유지하도록 설정되어 있습니다.
+
+참고: 현재 HTML에서 brand01~brand06, floor-map도 참조합니다.
+이 파일들은 이번 업로드에 실제 이미지가 없으므로, 추후 이미지를 넣을 때 기존 파일명 그대로 넣으면 됩니다.

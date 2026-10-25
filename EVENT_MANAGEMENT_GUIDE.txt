@@ -1,0 +1,90 @@
+THE GREAT SQUARE1 B1 이벤트 관리 안내 — V26
+
+⭐ 앞으로 이벤트를 수정할 때는 events.js의 EVENTS 영역만 수정하면 됩니다.
+별도의 event01.html, event02.html 파일을 만들 필요가 없습니다.
+
+[1. 이벤트 순서]
+각 이벤트의 order 숫자로 순서를 자유롭게 정합니다.
+- order: 1 → 첫 번째
+- order: 2 → 두 번째
+- order: 3 → 세 번째
+숫자가 작을수록 먼저 표시됩니다.
+이 순서는 메인 이벤트 카드, 전체 이벤트 리스트, 이전/다음 이벤트에 모두 적용됩니다.
+예: event04를 맨 앞으로 보내고 싶으면 event04의 order를 1로 바꾸고 기존 1번을 2 이상으로 변경하세요.
+
+[2. 이벤트 추가]
+- EVENTS 배열에 이벤트 하나를 복사해 추가합니다.
+- id를 event05처럼 변경합니다.
+- images 폴더에 event05-thumb.jpg(카드용), event05.jpg(상세용)을 넣습니다.
+- order 숫자를 지정합니다.
+- 별도의 event05.html은 만들 필요가 없습니다.
+
+[3. 노출 설정]
+mode: "auto" = 설정한 기간에 맞춰 자동 노출
+mode: "on"   = 날짜와 상관없이 노출
+mode: "off"  = 숨김
+
+[4. 날짜/시간]
+startDate/startTime = 노출 시작
+endDate/endTime = 노출 종료
+※ 고객에게 보여주는 기간 문구는 dateText와 info의 기간을 따로 수정할 수 있습니다.
+※ 실제 이벤트 기간이 "소진시까지"라면 EVENT INFORMATION의 value를 "소진시까지"로 입력하면 됩니다.
+
+[5. 카드 + 상세 기본 정보]
+label = 이벤트 분류
+title = 이벤트 제목
+dateText = 카드/상세 상단에 보이는 날짜
+thumb = 카드 이미지
+detailImage = 상세 메인 이미지
+
+[6. ⭐ 상세페이지 본문 편집]
+content 안에 원하는 블록을 원하는 순서대로 넣습니다.
+
+① 일반 본문
+{ type: "text", text: "이벤트 내용을 입력하세요." }
+
+② 소제목
+{ type: "heading", text: "EVENT BENEFIT" }
+
+③ 추가 이미지
+{ type: "image", src: "images/event01-detail-02.jpg", alt: "상세 이미지" }
+※ 해당 이미지는 images 폴더에 넣어주세요.
+
+④ 구분선
+{ type: "divider" }
+
+⑤ 외부 링크 버튼
+{ type: "button", text: "자세히 보기", url: "https://example.com" }
+
+예시:
+content: [
+  { type: "heading", text: "이벤트 혜택" },
+  { type: "text", text: "첫 번째 혜택을 입력하세요.\n줄바꿈도 가능합니다." },
+  { type: "image", src: "images/event01-detail-02.jpg", alt: "혜택 이미지" },
+  { type: "heading", text: "참여 안내" },
+  { type: "text", text: "참여방법을 입력하세요." }
+]
+
+※ content가 비어 있으면 상세 메인 이미지 아래 본문 영역이 자동으로 숨겨집니다.
+
+[7. ⭐ EVENT INFORMATION]
+info 안에 원하는 순서대로 입력합니다.
+예:
+info: [
+  { label: "기간", value: "소진시까지" },
+  { label: "장소", value: "THE GREAT SQUARE1 B1" },
+  { label: "참여방법", value: "1층 안내데스크에서 참여" }
+]
+
+- 참여방법이 없으면 value: "" 로 입력 → 해당 줄 자동 숨김
+- 기간이 소진시라면 value: "소진시까지" 입력
+- 순서를 바꾸면 화면 순서도 그대로 바뀜
+- 원하는 항목을 추가할 수도 있음
+  예) { label: "문의", value: "032-000-0000" }
+
+[8. 이전/다음 이벤트]
+order 순서 + 현재 자동 노출 중인 이벤트 기준으로 자동 연결됩니다.
+숨김(off) 또는 기간이 지난 이벤트는 이전/다음 이동에서 제외됩니다.
+
+※ 이벤트 상세페이지는 event.html 하나만 사용합니다.
+※ 기존 event01.html~event04.html은 _old-event-pages 폴더에 백업되어 있습니다.

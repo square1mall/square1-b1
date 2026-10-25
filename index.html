@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE GREAT SQUARE1 | B1</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="mini-logo top-great-logo" href="#top"><img src="images/logo.png" alt="THE GREAT SQUARE1"></a>
+  <button class="menu-btn" aria-label="메뉴"><i></i><i></i><i></i></button>
+</header>
+
+<main id="top">
+<section class="hero" id="hero">
+  <div class="hero-slider" id="hero-slider" aria-label="THE GREAT SQUARE1 메인 배너"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="great-title">THE GREAT SQUARE1</h1>
+    <p class="main-copy">스퀘어원, 지하층까지 확장!<br>기대하세요!</p>
+    <a class="primary-btn" href="#events">B1 EVENT 보기 <span>↓</span></a>
+  </div>
+  <button class="hero-arrow hero-prev" type="button" aria-label="이전 배너">‹</button>
+  <button class="hero-arrow hero-next" type="button" aria-label="다음 배너">›</button>
+  <div class="hero-dots" id="hero-dots" aria-label="배너 선택"></div>
+  <div class="scroll-indicator">SCROLL ↓</div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">NOW AT B1</p>
+  <h2>지금, B1에서는</h2>
+  <div class="category-grid">
+    <a class="category-card event-bg" href="#events"><b class="category-icon"><img src="images/icon-event.png" alt=""></b><strong>EVENT</strong><span>이벤트 & 프로모션</span><small>지금 진행 중인 이벤트</small></a>
+    <a class="category-card brand-bg" href="#brands"><b class="category-icon"><img src="images/icon-brand.png" alt=""></b><strong>BRAND</strong><span>새로운 브랜드</span><small>B1 신규 브랜드 알아보기</small></a>
+    <a class="category-card life-bg" href="#floor"><b class="category-icon"><img src="images/icon-life.png" alt=""></b><strong>FOOD & LIFE</strong><span>새로운 공간</span><small>쇼핑 & 라이프스타일</small></a>
+  </div>
+</section>
+
+<section class="section event-section" id="events">
+  <div class="heading-row event-heading-row"><div><p class="eyebrow event-heading-eyebrow">EVENT & PROMOTION</p><h2 class="event-heading-title">마케팅 이벤트 & 프로모션</h2></div><a class="event-all-link" href="events-marketing.html">전체보기 →</a></div>
+  <div class="event-list" id="event-list-marketing"></div>
+</section>
+
+<section class="section event-section" id="brand-events">
+  <div class="heading-row event-heading-row"><div><p class="eyebrow event-heading-eyebrow">BRAND EVENT</p><h2 class="event-heading-title">브랜드 이벤트 & 할인</h2></div><a class="event-all-link" href="events-brand.html">전체보기 →</a></div>
+  <div class="event-list" id="event-list-brand"></div>
+</section>
+
+<section class="section" id="brands">
+  <div class="heading-row brand-heading-row">
+    <div><p class="eyebrow">B1 BRAND</p><h2>새롭게 만나는 브랜드</h2></div>
+    <div class="brand-arrows" id="brand-arrows">
+      <button type="button" class="brand-arrow brand-prev" aria-label="이전 브랜드">‹</button>
+      <button type="button" class="brand-arrow brand-next" aria-label="다음 브랜드">›</button>
+    </div>
+  </div>
+  <div class="brand-viewport" id="brand-viewport">
+    <div class="brand-scroller" id="brand-scroller"></div>
+  </div>
+  <a class="outline-btn brand-floor-btn" href="https://www.square1.co.kr/store/floor.php?Category=B1" target="_blank" rel="noopener noreferrer">B1 매장안내 ↗</a>
+</section>
+
+<section class="section floor-section" id="floor">
+  <div><p class="eyebrow">B1 FLOOR GUIDE</p><h2>새롭게 바뀐 B1을<br>한눈에 만나보세요.</h2><p class="desc">쇼핑부터 라이프스타일까지<br>새로운 공간을 확인해보세요.</p><a class="outline-btn" href="https://www.square1.co.kr/store/floor.php?Category=B1" target="_blank" rel="noopener noreferrer">
+  FLOOR MAP ↗
+</a></div>
+  <div class="floor-map" id="floor-map"><img src="images/floor-map.jpg" alt="B1 FLOOR MAP"></div>
+</section>
+
+<section class="closing">
+  <p class="eyebrow">MORE SQUARE1</p><h2>새로운 일상이 시작되는 곳</h2>
+  <div class="closing-links" id="quick-links"><a data-quick-link="homepage" href="#" target="_blank" rel="noopener noreferrer">SQUARE1 HOMEPAGE <span>↗</span></a><a data-quick-link="instagram" href="#" target="_blank" rel="noopener noreferrer">INSTAGRAM <span>↗</span></a><a data-quick-link="kakao" href="#" target="_blank" rel="noopener noreferrer">KAKAO CHANNEL <span>↗</span></a></div>
+</section>
+</main>
+
+<footer>THE GREAT SQUARE1 <span>© SQUARE1. ALL RIGHTS RESERVED.</span></footer>
+<nav class="mobile-nav"><a class="active" href="#top"><span>⌂</span>HOME</a><a href="#events"><span>✦</span>EVENT</a><a href="#brands"><span>◫</span>BRAND</a><a href="#floor"><span>⌖</span>FLOOR</a><a href="#top"><span>•••</span>MORE</a></nav>
+<script src="events.js"></script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+  /* ===== 상세페이지 기본 ===== */
+  --detail-bg:#090b0e;
+  --detail-text:#f5f5f3;
+  --detail-max-width:960px;
+
+  /* ===== 상단 ===== */
+  --detail-logo-width:120px;
+  --detail-header-padding-y:20px;
+  --detail-header-padding-x:24px;
+  --detail-back-size:11px;
+  --detail-back-font:"Noto Sans KR";
+  --detail-back-weight:500;
+  --detail-back-spacing:0em;
+  --detail-back-color:#cfd3d9;
+
+  /* ===== 이벤트 분류 ===== */
+  --detail-label-size:11px;
+  --detail-label-font:"Space Grotesk";
+  --detail-label-weight:700;
+  --detail-label-spacing:.08em;
+  --detail-label-color:#a98bc9;
+
+  /* ===== 이벤트 제목 ===== */
+  --detail-title-size:34px;
+  --detail-title-font:"Noto Sans KR";
+  --detail-title-weight:700;
+  --detail-title-spacing:-.05em;
+  --detail-title-color:#f5f5f3;
+  --detail-title-line-height:1.25;
+
+  /* ===== 날짜 ===== */
+  --detail-date-size:12px;
+  --detail-date-font:"Noto Sans KR";
+  --detail-date-weight:400;
+  --detail-date-spacing:0em;
+  --detail-date-color:#858b93;
+
+  /* ===== 이벤트 메인 이미지 ===== */
+  /* ★ height:auto + contain = 이미지 원본 비율 유지 */
+  --detail-image-width:100%;
+  --detail-image-max-width:960px;
+  --detail-image-radius:18px;
+  --detail-image-margin-top:0px;
+  --detail-image-margin-bottom:0px;
+  --detail-image-left:0px;
+  --detail-image-top:0px;
+  --detail-image-bg:#25272a;
+
+  /* ===== 본문 ===== */
+  --detail-copy-size:14px;
+  --detail-copy-font:"Noto Sans KR";
+  --detail-copy-weight:400;
+  --detail-copy-spacing:0em;
+  --detail-copy-color:#d9dce0;
+  --detail-copy-line-height:1.9;
+  --detail-copy-margin-top:30px;
+
+  /* ===== 이벤트 정보 ===== */
+  --detail-info-bg:#111418;
+  --detail-info-border:#252a30;
+  --detail-info-radius:16px;
+  --detail-info-padding:24px;
+  --detail-info-title-size:16px;
+  --detail-info-title-weight:700;
+  --detail-info-title-color:#f5f5f3;
+  --detail-info-text-size:12px;
+  --detail-info-text-weight:400;
+  --detail-info-text-color:#aeb3ba;
+  --detail-info-text-line-height:1.8;
+
+  /* ===== 하단 네비게이션 ===== */
+  --detail-button-size:12px;
+  --detail-button-font:"Noto Sans KR";
+  --detail-button-weight:500;
+  --detail-button-color:#f5f5f3;
+  --detail-button-border:#666b72;
+  --detail-button-radius:999px;
+  --detail-button-padding-y:12px;
+  --detail-button-padding-x:18px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--detail-bg);color:var(--detail-text)}
+a{text-decoration:none;color:inherit}
+
+.page-top{
+  padding:var(--detail-header-padding-y) var(--detail-header-padding-x);
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.12)
+}
+.page-logo{width:var(--detail-logo-width)}
+.page-logo img{display:block;width:100%;height:auto}
+.back{
+  font-family:var(--detail-back-font);
+  font-size:var(--detail-back-size);
+  font-weight:var(--detail-back-weight);
+  letter-spacing:var(--detail-back-spacing);
+  color:var(--detail-back-color)
+}
+
+.event-detail{
+  max-width:var(--detail-max-width);
+  margin:0 auto;
+  padding:40px 20px 90px
+}
+.detail-label{
+  margin:0 0 10px;
+  font-family:var(--detail-label-font);
+  font-size:var(--detail-label-size);
+  font-weight:var(--detail-label-weight);
+  letter-spacing:var(--detail-label-spacing);
+  color:var(--detail-label-color)
+}
+.detail-title{
+  margin:0 0 12px;
+  font-family:var(--detail-title-font);
+  font-size:var(--detail-title-size);
+  font-weight:var(--detail-title-weight);
+  line-height:var(--detail-title-line-height);
+  letter-spacing:var(--detail-title-spacing);
+  color:var(--detail-title-color)
+}
+.detail-date{
+  margin:0 0 28px;
+  font-family:var(--detail-date-font);
+  font-size:var(--detail-date-size);
+  font-weight:var(--detail-date-weight);
+  letter-spacing:var(--detail-date-spacing);
+  color:var(--detail-date-color)
+}
+
+/* ★ 이벤트 포스터 전체가 보이도록 원본 비율 유지 */
+.detail-hero{
+  display:block;
+  width:var(--detail-image-width);
+  max-width:var(--detail-image-max-width);
+  height:auto;
+  aspect-ratio:auto;
+  object-fit:contain;
+  border-radius:var(--detail-image-radius);
+  background:var(--detail-image-bg);
+  margin:var(--detail-image-margin-top) auto var(--detail-image-margin-bottom);
+  transform:translate(var(--detail-image-left),var(--detail-image-top))
+}
+
+.detail-copy{
+  margin-top:var(--detail-copy-margin-top);
+  font-family:var(--detail-copy-font);
+  font-size:var(--detail-copy-size);
+  font-weight:var(--detail-copy-weight);
+  letter-spacing:var(--detail-copy-spacing);
+  line-height:var(--detail-copy-line-height);
+  color:var(--detail-copy-color)
+}
+.detail-copy p{margin:0 0 18px}
+
+.detail-box{
+  padding:var(--detail-info-padding);
+  background:var(--detail-info-bg);
+  border:1px solid var(--detail-info-border);
+  border-radius:var(--detail-info-radius);
+  margin-top:30px
+}
+.detail-box h2{
+  margin:0 0 12px;
+  font-family:"Noto Sans KR";
+  font-size:var(--detail-info-title-size);
+  font-weight:var(--detail-info-title-weight);
+  color:var(--detail-info-title-color)
+}
+.detail-box p{
+  margin:0;
+  font-family:"Noto Sans KR";
+  font-size:var(--detail-info-text-size);
+  font-weight:var(--detail-info-text-weight);
+  line-height:var(--detail-info-text-line-height);
+  color:var(--detail-info-text-color)
+}
+
+.detail-actions{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:30px
+}
+.detail-btn{
+  padding:var(--detail-button-padding-y) var(--detail-button-padding-x);
+  border:1px solid var(--detail-button-border);
+  border-radius:var(--detail-button-radius);
+  font-family:var(--detail-button-font);
+  font-size:var(--detail-button-size);
+  font-weight:var(--detail-button-weight);
+  color:var(--detail-button-color)
+}
+.event-nav{
+  display:flex;justify-content:space-between;gap:10px;
+  margin-top:16px
+}
+.event-nav .detail-btn{flex:1;text-align:center}
+
+footer{
+  padding:25px 20px 40px;
+  background:#08090b;
+  color:#686d74;
+  font:8px "Noto Sans KR"
+}
+
+@media(max-width:767px){
+  .event-detail{padding:30px 16px 70px}
+  .detail-title{font-size:27px}
+  .detail-hero{
+    width:100%;
+    max-width:100%;
+    height:auto;
+    aspect-ratio:auto;
+    object-fit:contain
+  }
+  .event-nav{display:grid}
+}
+
+.detail-info-text{display:flex;flex-direction:column;gap:4px}
+.detail-info-row{display:flex;gap:10px;line-height:1.8}
+.detail-info-row strong{flex:0 0 auto;font-weight:500;color:#d9dce0}
+.detail-info-row span{color:var(--detail-info-text-color)}
+@media(max-width:767px){.detail-info-row{display:block}.detail-info-row strong{display:inline-block;margin-right:6px}}
+
+
+/* ===== V26 상세 본문 블록 ===== */
+.detail-copy h3{
+  margin:32px 0 12px;
+  font-family:"Noto Sans KR";
+  font-size:20px;
+  font-weight:700;
+  line-height:1.5;
+  letter-spacing:-.03em;
+  color:var(--detail-text)
+}
+.detail-copy p{
+  margin:0 0 18px;
+  white-space:pre-line
+}
+.detail-content-image{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  margin:26px auto;
+  border-radius:14px
+}
+.detail-content-divider{
+  border:0;
+  border-top:1px solid rgba(255,255,255,.12);
+  margin:32px 0
+}
+.detail-content-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin:8px 0 24px;
+  padding:12px 20px;
+  border:1px solid var(--detail-button-border);
+  border-radius:999px;
+  font-family:"Noto Sans KR";
+  font-size:12px;
+  font-weight:600;
+  color:var(--detail-button-color)
+}

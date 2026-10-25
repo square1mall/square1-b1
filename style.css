@@ -1,0 +1,808 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* =========================================================
+   ⭐ 초보자용 수정 영역 — 여기 숫자/색상만 바꾸면 돼요!
+   ========================================================= */
+/* ⭐⭐⭐ 초보자용 수정 영역 — 이 부분만 수정하세요 ⭐⭐⭐ */
+:root{
+  /* ⭐ HERO 메인 이미지 — PC / 모바일을 각각 조절 */
+  --pc-height:1000px;
+  --pc-x:50%;
+  --pc-y:60%;
+
+  --mobile-height:760px;
+  --mobile-x:50%;
+  --mobile-y:50%;
+
+/* THE GREAT SQUARE1 */
+  --great-title-weight:700;
+  --great-title-size:clamp(48px,6vw,90px);
+  --great-title-line-height:.85;
+  --great-title-spacing:-0.01em;
+  --great-title-color:#ffffff;
+  --great-title-font:"Space Grotesk";
+  --great-title-left:0px;
+  --great-title-top:0px;
+
+  /* 스퀘어원, 지하층까지 확장! + 기대하세요! */
+  --main-copy-weight:400;
+  --main-copy-size:clamp(22px,2.8vw,40px);
+  --main-copy-spacing:-0.04em;
+  --main-copy-color:#ffffff;
+  --main-copy-font:"Noto Sans KR";
+  --main-copy-left:0px;
+  --main-copy-top:0px;
+
+/* ⭐ HERO B1 EVENT 보기 버튼 */
+  --hero-btn-size:clamp(12px,1.2vw,15px);
+  --hero-btn-font:"Noto Sans KR";
+  --hero-btn-spacing:0em;
+  --hero-btn-color:#ffffff;
+  --hero-btn-arrow-size:clamp(12px,1.2vw,15px);
+  --hero-btn-width:clamp(150px,18vw,210px);
+  --hero-btn-padding-y:clamp(10px,1.2vw,13px);
+  --hero-btn-padding-x:clamp(16px,1.8vw,20px);
+  --hero-btn-gap:clamp(8px,1.2vw,15px);
+  --hero-btn-left:0px;
+  --hero-btn-top:0px;
+
+  /* ⭐ NOW AT B1 / 지금, B1에서는 */
+  --now-eyebrow-size:clamp(12px,1.1vw,13px);
+  --now-eyebrow-font:"Space Grotesk";
+  --now-eyebrow-spacing:0.12em;
+  --now-eyebrow-color:#ffffff;
+
+  --now-title-size:clamp(26px,2.4vw,36px);
+  --now-title-font:"Noto Sans KR";
+  --now-title-spacing:-0.05em;
+  --now-title-color:#ffffff;
+
+  /* ⭐ 카테고리 카드 공통 */
+  --category-icon-size:clamp(28px,3vw,34px);      /* 픽토그램 크기 */
+  --category-icon-top:10px;       /* 아이콘 상하 위치 */
+
+  /* 카드의 영어 제목: EVENT / BRAND / FOOD & LIFE */
+  --category-name-size:clamp(15px,1.8vw,20px);
+  --category-name-font:"Space Grotesk";
+  --category-name-spacing:0em;
+  --category-name-color:#ffffff;
+  --category-name-top:-5px;
+
+  /* 카드의 한글 제목: 이벤트 & 프로모션 / 새로운 브랜드 / 새로운 공간 */
+  --category-sub-size:clamp(15px,1.8vw,20px);
+  --category-sub-font:"Noto Sans KR";
+  --category-sub-spacing:-0.03em;
+  --category-sub-color:#ffffff;
+  --category-sub-top:-5px;
+
+  /* 카드의 설명: 지금 진행 중인 이벤트 / B1 신규 브랜드 알아보기 / 쇼핑 & 라이프스타일 */
+  --category-desc-size:clamp(11px,1.2vw,13px);
+  --category-desc-font:"Noto Sans KR";
+  --category-desc-spacing:-0.02em;
+  --category-desc-color:#d5d7dc;
+  --category-desc-top:0px;
+
+  /* ⭐ 카드 글씨 전체를 위/아래로 이동 */
+  --category-content-top:-10px;
+
+  /* 카테고리 카드 배경색 - 여기의 색상 코드만 바꾸면 됩니다 */
+  --event-bg-1:#4289e0;
+  --event-bg-2:#0e3059;
+  --brand-bg-1:#19424d;
+  --brand-bg-2:#10191c;
+  --life-bg-1:#604722;
+  --life-bg-2:#17120d;
+
+
+  /* =========================================================
+     ⭐ B1 FLOOR GUIDE 수정 영역
+     ========================================================= */
+
+  /* FLOOR GUIDE 설명 글씨 */
+  --floor-desc-size:clamp(11px,1.1vw,12px);
+  --floor-desc-line-height:1.6;
+
+  /* FLOOR MAP 버튼 글씨 */
+  --floor-btn-size:clamp(12px,1.2vw,15px);
+
+  /* ========================================================= */
+
+  /* =========================================================
+     ⭐ EVENT & PROMOTION 섹션 수정 영역
+     ========================================================= */
+
+  /* 섹션 전체 */
+  --event-section-padding-top:90px;
+  --event-section-padding-bottom:90px;
+
+  /* 상단 작은 영문: EVENT & PROMOTION */
+  --event-heading-eyebrow-size:clamp(12px,1.1vw,13px);
+  --event-heading-eyebrow-font:"Space Grotesk";
+  --event-heading-eyebrow-weight:600;
+  --event-heading-eyebrow-spacing:0.08em;
+  --event-heading-eyebrow-color:#ffffff;
+  --event-heading-eyebrow-left:0px;
+  --event-heading-eyebrow-top:0px;
+
+  /* 큰 한글 제목: 지금 진행 중인 이벤트 */
+  --event-heading-title-size:clamp(24px,2.5vw,32px);
+  --event-heading-title-font:"Noto Sans KR";
+  --event-heading-title-weight:700;
+  --event-heading-title-spacing:-0.05em;
+  --event-heading-title-color:#ffffff;
+  --event-heading-title-left:0px;
+  --event-heading-title-top:0px;
+
+  /* 오른쪽 전체보기 */
+  --event-all-size:clamp(10px,1vw,11px);
+  --event-all-font:"Noto Sans KR";
+  --event-all-weight:500;
+  --event-all-spacing:0em;
+  --event-all-color:#cfd3d9;
+  --event-all-left:0px;
+  --event-all-top:0px;
+
+  /* 카드 박스 */
+  --event-card-radius:15px;
+  --event-card-gap:9px;
+
+  /* ===== ⭐ EVENT 카드 썸네일 이미지 ===== */
+  --event-thumb-height:388px;
+  --event-thumb-fit:cover;
+  --event-thumb-x:50%;
+  --event-thumb-y:50%;
+  --event-thumb-scale:1;
+  --event-thumb-radius:15px;
+  --event-card-bg:#f2f2ef;
+  --event-card-border-width:0px;
+  --event-card-border-color:transparent;
+
+  /* 카드 이미지 영역 */
+  --event-image-width:40%;
+  --event-image-height:300px;
+  --event-image-position-x:50%;
+  --event-image-position-y:50%;
+  --event-image-scale:1;
+  --event-image-bg:#333333;
+
+  /* 카드 텍스트 영역 */
+  --event-text-padding-top:18px;
+  --event-text-padding-right:18px;
+  --event-text-padding-bottom:18px;
+  --event-text-padding-left:18px;
+  --event-text-left:0px;
+  --event-text-top:0px;
+
+  /* 카드 작은 분류: EVENT / OPEN EVENT / SPECIAL EVENT */
+  --event-card-label-size:clamp(9px,1vw,11px);
+  --event-card-label-font:"Space Grotesk";
+  --event-card-label-weight:700;
+  --event-card-label-spacing:0em;
+  --event-card-label-color:#8066a9;
+  --event-card-label-left:0px;
+  --event-card-label-top:0px;
+
+  /* 카드 제목 */
+  --event-card-title-size:clamp(16px,1.5vw,20px);
+  --event-card-title-font:"Noto Sans KR";
+  --event-card-title-weight:700;
+  --event-card-title-spacing:-0.04em;
+  --event-card-title-color:#15171a;
+  --event-card-title-left:0px;
+  --event-card-title-top:0px;
+
+  /* 카드 날짜 */
+  --event-card-date-size:clamp(10px,1.1vw,12px);
+  --event-card-date-font:"Noto Sans KR";
+  --event-card-date-weight:400;
+  --event-card-date-spacing:-0.02em;
+  --event-card-date-color:#73777c;
+  --event-card-date-left:0px;
+  --event-card-date-top:0px;
+
+  /* 카드 오른쪽 화살표 */
+  --event-card-arrow-size:14px;
+  --event-card-arrow-bg:#111111;
+  --event-card-arrow-color:#ffffff;
+  --event-card-arrow-left:0px;
+  --event-card-arrow-top:0px;
+  /* size = 원형 버튼 크기 / bg = 원형 배경 / color = 화살표 색상 / left·top = 위치 미세조정 */
+
+  /* 카드 전체 위치 */
+  --event-cards-left:0px;
+  --event-cards-top:0px;
+
+  /* ========================================================= */
+
+  /* THE GREAT SQUARE1 로고 */
+  --great-logo-width:120px;
+  --logo-left:-30px;
+  --logo-top:-15px;
+}
+
+/* ========================================================= */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#090b0e;color:#f5f5f3;font-family:"Noto Sans KR",sans-serif}
+a{color:inherit;text-decoration:none}
+
+.topbar{position:absolute;z-index:5;top:0;left:0;right:0;padding:20px 22px;display:flex;justify-content:space-between;align-items:flex-start}
+.top-great-logo{display:block;width:min(34vw,var(--great-logo-width));transform:translate(var(--logo-left),var(--logo-top))}
+.top-great-logo img{display:block;width:100%;height:auto}
+.mini-logo{font:700 18px/1 "Space Grotesk";letter-spacing:-.06em}.mini-logo span{display:block;font-size:7px;letter-spacing:.12em;margin-top:4px}
+.menu-btn{width:44px;height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.65);display:grid;place-content:center;gap:5px}.menu-btn i{width:18px;height:2px;background:#fff;display:block}
+
+.hero{height:var(--pc-height);position:relative;display:flex;align-items:flex-end;overflow:hidden}
+.hero-image{position:absolute;inset:0;background-image:url("images/main-pc.jpg");background-size:cover;background-position:var(--pc-x) var(--pc-y)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.10) 40%,rgba(0,0,0,.78) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 24px 68px;width:100%}
+.great-title{
+  margin:0;
+  transform:translate(var(--great-title-left),var(--great-title-top));
+  font-family:var(--great-title-font);
+    font-size:var(--great-title-size);
+    font-weight:var(--great-title-weight);
+    line-height:var(--great-title-line-height);
+  letter-spacing:var(--great-title-spacing);
+  color:var(--great-title-color);
+  text-shadow:0 3px 16px rgba(0,0,0,.35);
+}
+.main-copy{
+  margin:18px 0 22px;
+  transform:translate(var(--main-copy-left),var(--main-copy-top));
+  font-family:var(--main-copy-font);
+    font-size:var(--main-copy-size);
+    font-weight:var(--main-copy-weight);
+    line-height:1.45;
+  letter-spacing:var(--main-copy-spacing);
+  color:var(--main-copy-color);
+  text-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.primary-btn,.outline-btn{display:inline-flex;align-items:center;gap:var(--hero-btn-gap);border:1px solid rgba(255,255,255,.85);border-radius:999px;padding:var(--hero-btn-padding-y) var(--hero-btn-padding-x);font-size:var(--hero-btn-size);font-family:var(--hero-btn-font);font-weight:700;letter-spacing:var(--hero-btn-spacing);color:var(--hero-btn-color);transform:translate(var(--hero-btn-left),var(--hero-btn-top))}
+.primary-btn{min-width:var(--hero-btn-width);justify-content:center}
+.primary-btn span{font-size:var(--hero-btn-arrow-size);line-height:1}
+.scroll-indicator{position:absolute;right:22px;bottom:26px;z-index:3;writing-mode:vertical-rl;font:9px "Space Grotesk";letter-spacing:.12em}
+
+.section{padding:64px 20px;border-top:1px solid rgba(255,255,255,.12)}.eyebrow{margin:0 0 8px;font:600 var(--now-eyebrow-size) var(--now-eyebrow-font);letter-spacing:var(--now-eyebrow-spacing);color:var(--now-eyebrow-color)}.section h2,.closing h2{margin:0 0 25px;font-size:var(--now-title-size);font-family:var(--now-title-font);line-height:1.2;letter-spacing:var(--now-title-spacing);color:var(--now-title-color)}
+ .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.category-card{min-height:190px;border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:16px 8px;display:flex;flex-direction:column;justify-content:flex-end;text-align:center;overflow:hidden}
+.category-card b.category-icon{
+  font-size:0;
+  color:inherit;
+  margin-bottom:auto;
+  transform:translateY(var(--category-icon-top));
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.category-card b.category-icon img{
+  display:block;
+  width:var(--category-icon-size);
+  height:var(--category-icon-size);
+  object-fit:contain;
+  filter:none;
+}
+.category-card strong{
+  transform:translateY(calc(var(--category-content-top) + var(--category-name-top)));
+  font:700 var(--category-name-size) var(--category-name-font);
+  letter-spacing:var(--category-name-spacing);
+  color:var(--category-name-color);
+}
+.category-card span{
+  transform:translateY(calc(var(--category-content-top) + var(--category-sub-top)));
+  font:600 var(--category-sub-size) var(--category-sub-font);
+  letter-spacing:var(--category-sub-spacing);
+  color:var(--category-sub-color);
+}
+.category-card small{
+  margin-top:6px;
+  transform:translateY(calc(var(--category-content-top) + var(--category-desc-top)));
+  color:var(--category-desc-color);
+  font:400 var(--category-desc-size)/1.4 var(--category-desc-font);
+  letter-spacing:var(--category-desc-spacing)
+}
+.event-bg{background:linear-gradient(145deg,var(--event-bg-1),var(--event-bg-2))}
+.brand-bg{background:linear-gradient(145deg,var(--brand-bg-1),var(--brand-bg-2))}
+.life-bg{background:linear-gradient(145deg,var(--life-bg-1),var(--life-bg-2))}
+
+.heading-row{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.heading-row h2{margin:0}.heading-row>a{font-size:11px;color:#cfd3d9}
+.event-list{display:grid;gap:var(--event-card-gap)}.event-card{display:grid;grid-template-columns:40% 1fr auto;min-height:112px;background:var(--event-card-bg);color:#15171a;border-radius:var(--event-card-radius);overflow:hidden;align-items:center}.event-card img{width:100%;height:100%;min-height:112px;object-fit:var(--event-thumb-fit);object-position:var(--event-thumb-x) var(--event-thumb-y);background:var(--event-image-bg)}.event-card-text{padding:var(--event-text-padding-top) var(--event-text-padding-right) var(--event-text-padding-bottom) var(--event-text-padding-left);transform:translate(var(--event-text-left),var(--event-text-top))}.event-card-text small{color:var(--event-card-label-color);font-family:var(--event-card-label-font);font-size:var(--event-card-label-size);font-weight:var(--event-card-label-weight);letter-spacing:var(--event-card-label-spacing);display:block;transform:translate(var(--event-card-label-left),var(--event-card-label-top))}.event-card-text h3{font-size:var(--event-card-title-size);line-height:1.3;margin:4px 0;color:var(--event-card-title-color);font-family:var(--event-card-title-font);font-weight:var(--event-card-title-weight);letter-spacing:var(--event-card-title-spacing);transform:translate(var(--event-card-title-left),var(--event-card-title-top))}.event-card-text p{margin:0;color:var(--event-card-date-color);font-family:var(--event-card-date-font);font-size:var(--event-card-date-size);font-weight:var(--event-card-date-weight);letter-spacing:var(--event-card-date-spacing);transform:translate(var(--event-card-date-left),var(--event-card-date-top))}.event-card>b{margin-right:10px;width:var(--event-card-arrow-size);height:var(--event-card-arrow-size);border-radius:50%;background:var(--event-card-arrow-bg);color:var(--event-card-arrow-color);display:grid;place-items:center;font-size:calc(var(--event-card-arrow-size) * .48);line-height:1}
+.brand-scroller{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;margin-right:-20px;padding-right:20px}.brand-scroller::-webkit-scrollbar{display:none}.brand-card{min-width:140px;height:125px;border-radius:15px;background:#f4f4f1;overflow:hidden}.brand-card img{width:100%;height:100%;object-fit:cover;background:#eee}
+.floor-section{background:#111418}.floor-section .desc{color:#a7abb1;font-size:var(--floor-desc-size);line-height:var(--floor-desc-line-height);margin:0 0 22px}.floor-section .outline-btn{font-size:var(--floor-btn-size)}.floor-map{margin-top:28px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);min-height:260px}.floor-map img{display:block;width:100%;height:100%;min-height:260px;object-fit:cover;background:#171a1e}
+.closing{padding:80px 20px 110px;text-align:center;background:#08090b}.closing h2{font-size:28px;margin-bottom:30px}.closing-links{display:grid;text-align:left}.closing-links a{display:flex;justify-content:space-between;padding:15px 2px;border-top:1px solid rgba(255,255,255,.12);font:600 10px "Space Grotesk"}.closing-links a:last-child{border-bottom:1px solid rgba(255,255,255,.12)}
+footer{padding:25px 20px 90px;color:#686d74;background:#08090b;font-size:8px;display:flex;justify-content:space-between}.mobile-nav{position:fixed;z-index:20;bottom:0;left:0;right:0;height:64px;background:rgba(8,9,11,.95);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(5,1fr)}.mobile-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#8d9299;font:600 7px "Space Grotesk"}.mobile-nav a span{font-size:16px}.mobile-nav a.active{color:#fff}
+
+@media(min-width:768px){
+  .hero{height:var(--pc-height)}.hero-image{background-position:var(--pc-x) var(--pc-y);background-size:cover}.hero-content{padding-left:48px}.topbar{padding:28px 48px}.top-great-logo{width:min(26vw,var(--great-logo-width))}.section{padding:90px 48px}.section h2{font-size:var(--now-title-size)}.event-list{grid-template-columns:repeat(3,1fr)}.event-card{display:block}.event-card img{width:100%;height:var(--event-image-height);min-height:0}.event-card>b{display:grid}.brand-card{min-width:220px;height:180px}.floor-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}.floor-map{margin-top:0}.mobile-nav{display:none}
+}
+
+
+@media (max-width:899px){.hero{height:var(--hero-mobile-height)}.hero-image{background-image:url("images/main-mobile.jpg");background-position:var(--hero-mobile-position-x) var(--hero-mobile-position-y)}}
+
+
+@media (max-width:899px){
+  .hero{
+    height:var(--mobile-height);
+  }
+  .hero-picture img{
+    object-position:var(--mobile-x) var(--mobile-y);
+  }
+}
+
+
+/* ⭐ 모바일 메인 이미지 — PC와 독립적으로 적용 */
+@media (max-width:899px){
+  .hero{height:var(--mobile-height);}
+  .hero-image{
+    background-image:url("images/main-mobile.jpg");
+    background-position:var(--mobile-x) var(--mobile-y);
+    background-size:cover;
+  }
+}
+
+
+/* ===== 카테고리 카드 배경색 적용 ===== */
+.event-bg{
+  background:linear-gradient(145deg,var(--event-bg-1),var(--event-bg-2)) !important;
+}
+.brand-bg{
+  background:linear-gradient(145deg,var(--brand-bg-1),var(--brand-bg-2)) !important;
+}
+.life-bg{
+  background:linear-gradient(145deg,var(--life-bg-1),var(--life-bg-2)) !important;
+}
+
+
+/* =========================================================
+   ⭐ EVENT & PROMOTION 섹션 — 상단 설정값 연결
+   ========================================================= */
+.event-section{
+  padding-top:var(--event-section-padding-top);
+  padding-bottom:var(--event-section-padding-bottom);
+}
+.event-empty{
+  margin:0;
+  padding:28px 16px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:15px;
+  color:#9da2a9;
+  background:rgba(255,255,255,.035);
+  text-align:center;
+  font-size:12px;
+}
+
+.event-heading-row{
+  transform:translate(var(--event-cards-left),0);
+}
+
+.event-heading-eyebrow{
+  font-family:var(--event-heading-eyebrow-font);
+  font-size:var(--event-heading-eyebrow-size);
+  font-weight:var(--event-heading-eyebrow-weight);
+  letter-spacing:var(--event-heading-eyebrow-spacing);
+  color:var(--event-heading-eyebrow-color);
+  transform:translate(var(--event-heading-eyebrow-left),var(--event-heading-eyebrow-top));
+}
+
+.event-heading-title{
+  margin:0 0 25px;
+  font-family:var(--event-heading-title-font);
+  font-size:var(--event-heading-title-size);
+  font-weight:var(--event-heading-title-weight);
+  line-height:1.2;
+  letter-spacing:var(--event-heading-title-spacing);
+  color:var(--event-heading-title-color);
+  transform:translate(var(--event-heading-title-left),var(--event-heading-title-top));
+}
+
+.event-all-link{
+  font-family:var(--event-all-font);
+  font-size:var(--event-all-size);
+  font-weight:var(--event-all-weight);
+  letter-spacing:var(--event-all-spacing);
+  color:var(--event-all-color);
+  transform:translate(var(--event-all-left),var(--event-all-top));
+}
+
+.event-cards{
+  gap:var(--event-card-gap);
+  transform:translate(var(--event-cards-left),var(--event-cards-top));
+}
+
+.event-card{
+  position:relative;
+  border-radius:var(--event-card-radius);
+  background:var(--event-card-bg);
+  border:var(--event-card-border-width) solid var(--event-card-border-color);
+}
+
+.event-card img{
+  width:var(--event-image-width);
+  height:var(--event-image-height);
+  object-position:var(--event-image-position-x) var(--event-image-position-y);
+  transform:scale(var(--event-image-scale));
+  transform-origin:center;
+  background:var(--event-image-bg);
+}
+
+.event-card-text{
+  padding:var(--event-text-padding-top) var(--event-text-padding-right) var(--event-text-padding-bottom) var(--event-text-padding-left);
+  transform:translate(var(--event-text-left),var(--event-text-top));
+}
+
+.event-card-text small{
+  color:var(--event-card-label-color);
+  font-family:var(--event-card-label-font);
+  font-size:var(--event-card-label-size);
+  font-weight:var(--event-card-label-weight);
+  letter-spacing:var(--event-card-label-spacing);
+  transform:translate(var(--event-card-label-left),var(--event-card-label-top));
+  display:block;
+}
+
+.event-card-text h3{
+  color:var(--event-card-title-color);
+  font-family:var(--event-card-title-font);
+  font-size:var(--event-card-title-size);
+  font-weight:var(--event-card-title-weight);
+  line-height:1.3;
+  letter-spacing:var(--event-card-title-spacing);
+  transform:translate(var(--event-card-title-left),var(--event-card-title-top));
+}
+
+.event-card-text p{
+  color:var(--event-card-date-color);
+  font-family:var(--event-card-date-font);
+  font-size:var(--event-card-date-size);
+  font-weight:var(--event-card-date-weight);
+  letter-spacing:var(--event-card-date-spacing);
+  transform:translate(var(--event-card-date-left),var(--event-card-date-top));
+}
+
+.event-card>b{
+  position:absolute;
+  z-index:3;
+  width:var(--event-card-arrow-size);
+  height:var(--event-card-arrow-size);
+  margin:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:calc(var(--event-card-arrow-size) * .48);
+  line-height:1;
+  background:var(--event-card-arrow-bg);
+  color:var(--event-card-arrow-color);
+  transform:translate(var(--event-card-arrow-left),var(--event-card-arrow-top));
+  right:14px;
+  bottom:14px;
+}
+
+/* PC에서는 이미지/텍스트가 위아래 카드 구조가 되므로 이미지 폭은 100% */
+@media(min-width:768px){
+  .event-card{
+    display:block;
+    overflow:hidden;
+  }
+  .event-card img{
+    width:100%;
+    height:var(--event-thumb-height);
+  }
+  .event-card-text{
+    min-height:118px;
+  }
+  .event-card>b{
+    display:grid;
+  }
+}
+
+/* 모바일에서는 이미지 + 텍스트 가로 카드 */
+@media(max-width:767px){
+  .event-card{
+    display:grid;
+    grid-template-columns:40% 1fr auto;
+    align-items:center;
+  }
+  .event-card img{
+    width:100%;
+    height:112px;
+    min-height:112px;
+  }
+  .event-card-text{
+    padding:var(--event-text-padding-top) var(--event-text-padding-right) var(--event-text-padding-bottom) var(--event-text-padding-left);
+  }
+}
+
+
+/* =====================================================
+   ⭐ EVENT 카드 썸네일 이미지 수정 영역
+   카드 이미지와 상세페이지 이미지는 서로 다른 파일을 사용합니다.
+   카드: images/event01-thumb.jpg
+   상세: images/event01.jpg
+   ===================================================== */
+.event-card{overflow:hidden;}
+.event-card > img{
+  width:100%;
+  height:var(--event-thumb-height);
+  min-height:0;
+  object-fit:var(--event-thumb-fit);
+  object-position:var(--event-thumb-x) var(--event-thumb-y);
+  transform:scale(var(--event-thumb-scale));
+  display:block;
+}
+@media(max-width:767px){
+  .event-card > img{
+    height:var(--event-thumb-height);
+    min-height:0;
+  }
+}
+@media(min-width:768px){
+  .event-card > img{height:var(--event-thumb-height);}
+}
+
+/* =========================================================
+   V34 — AUTO RESPONSIVE / MOBILE EVENT CARD
+   ========================================================= */
+
+/* =========================================================
+   V34 — AUTO RESPONSIVE / MOBILE EVENT CARD
+   =========================================================
+   ⭐ 글씨/버튼/간격은 clamp()로 화면 크기에 따라 자동 조절합니다.
+   ⭐ PC와 모바일 메인 이미지는 기존처럼 별도 파일을 사용합니다.
+   ⭐ 모바일 이벤트 카드는 사진 위 / 텍스트 아래 구조입니다.
+*/
+
+@media (max-width:767px){
+  /* 화면 크기에 따라 섹션 제목과 카드 글씨가 자연스럽게 줄어듭니다. */
+  .section{padding-left:clamp(18px,5vw,24px);padding-right:clamp(18px,5vw,24px)}
+  .hero-content{padding-left:clamp(22px,5vw,32px);padding-right:clamp(22px,5vw,32px);padding-bottom:clamp(54px,10vw,78px)}
+  .great-title{font-size:var(--great-title-size);line-height:clamp(.88,1vw,.95)}
+  .main-copy{font-size:var(--main-copy-size);margin-top:clamp(14px,3vw,18px);margin-bottom:clamp(18px,4vw,24px);line-height:1.35}
+  .primary-btn{min-width:var(--hero-btn-width)}
+
+  /* NOW AT B1 카테고리 */
+  .category-grid{gap:clamp(6px,2vw,10px)}
+  .category-card{min-height:clamp(180px,50vw,220px);padding:clamp(12px,3vw,16px) clamp(6px,2vw,10px)}
+  .category-card strong,.category-card span,.category-card small{word-break:keep-all;overflow-wrap:normal}
+  .category-card strong{font-size:var(--category-name-size)}
+  .category-card span{font-size:var(--category-sub-size);line-height:1.25}
+  .category-card small{font-size:var(--category-desc-size);line-height:1.4}
+
+  /* ⭐ 이벤트 카드: 모바일에서도 사진 위 / 텍스트 아래 */
+  .event-list{gap:clamp(12px,3vw,18px)}
+  .event-card{
+    display:block !important;
+    min-height:0;
+    width:100%;
+    overflow:hidden;
+  }
+  .event-card > img{
+    display:block;
+    width:100%;
+    height:auto !important;
+    min-height:0 !important;
+    aspect-ratio:auto;
+    object-fit:contain !important;
+    object-position:center;
+    transform:none;
+    background:#eee;
+  }
+  .event-card-text{
+    padding:clamp(18px,5vw,28px) clamp(18px,5vw,28px) clamp(42px,9vw,56px);
+    transform:none;
+  }
+  .event-card-text small{font-size:var(--event-card-label-size);line-height:1.2}
+  .event-card-text h3{font-size:var(--event-card-title-size);line-height:1.35;margin:6px 0 8px;word-break:keep-all}
+  .event-card-text p{font-size:var(--event-card-date-size);line-height:1.4}
+  .event-card>b{right:14px;bottom:14px}
+
+  /* 하단 고정 메뉴가 마지막 콘텐츠를 가리지 않도록 여유 공간 확보 */
+  main{padding-bottom:80px}
+}
+
+@media (min-width:768px){
+  .event-card > img{width:100%;height:var(--event-thumb-height);object-fit:var(--event-thumb-fit)}
+}
+
+
+/* =========================================================
+   V35 — HERO IMAGE + VIDEO CAROUSEL
+   ========================================================= */
+.hero-slider{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  cursor:grab;
+  touch-action:pan-y;
+}
+.hero-slider.is-dragging{cursor:grabbing}
+.hero-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .55s ease;
+}
+.hero-slide.is-active{
+  opacity:1;
+  visibility:visible;
+}
+.hero-slide picture,
+.hero-slide .hero-media{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.hero-slide .hero-media{
+  object-fit:cover;
+  object-position:center;
+}
+.hero-video-fallback{z-index:0}
+.hero-video{z-index:1}
+.hero-slide picture{z-index:1}
+.hero-overlay{z-index:2;pointer-events:none}
+.hero-content{z-index:4}
+.hero-arrow{
+  position:absolute;
+  z-index:5;
+  top:50%;
+  width:44px;
+  height:44px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:50%;
+  background:rgba(0,0,0,.22);
+  color:#fff;
+  font-size:32px;
+  line-height:1;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transform:translateY(-50%);
+  backdrop-filter:blur(8px);
+}
+.hero-prev{left:22px}
+.hero-next{right:22px}
+.hero-dots{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:7px;
+}
+.hero-dot{
+  width:6px;
+  height:6px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.45);
+  cursor:pointer;
+}
+.hero-dot.is-active{background:#fff;width:20px;border-radius:999px}
+@media(max-width:767px){
+  .hero-arrow{width:34px;height:34px;font-size:25px}
+  .hero-prev{left:10px}
+  .hero-next{right:10px}
+  .hero-dots{bottom:18px}
+}
+
+/* =========================================================
+   V35 — BRAND ONE-BY-ONE CAROUSEL
+   ========================================================= */
+.brand-heading-row{align-items:center}
+.brand-arrows{display:none;gap:6px}
+.brand-arrow{
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  background:transparent;
+  color:#fff;
+  font-size:23px;
+  line-height:1;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+.brand-viewport{overflow:hidden}
+.brand-scroller{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  margin:0;
+  padding:0 0 4px;
+  scroll-behavior:smooth;
+}
+.brand-scroller::-webkit-scrollbar{display:none}
+.brand-card{
+  flex:0 0 calc((100% - 60px)/6);
+  min-width:0;
+  height:180px;
+  border-radius:15px;
+}
+.brand-card img{object-fit:cover}
+.brand-floor-btn{
+  margin-top:22px;
+  text-decoration:none;
+}
+@media(max-width:767px){
+  .brand-scroller{
+    gap:10px;
+    overflow-x:auto;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  .brand-card{
+    flex-basis:72vw;
+    height:180px;
+    scroll-snap-align:start;
+  }
+}
+
+/* =========================================================
+   V35 — TIMES NOW STYLE EVENT CAROUSEL
+   ========================================================= */
+.event-list{display:block !important}
+.event-carousel-viewport{
+  width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  cursor:grab;
+  -webkit-overflow-scrolling:touch;
+}
+.event-carousel-viewport::-webkit-scrollbar{display:none}
+.event-carousel-viewport.is-dragging{cursor:grabbing}
+.event-carousel-track{
+  display:flex;
+  gap:var(--event-card-gap);
+  width:max-content;
+}
+.event-carousel-track .event-card{
+  flex:0 0 clamp(280px,30vw,420px);
+  width:clamp(280px,30vw,420px);
+  min-height:0;
+}
+.event-carousel-track .event-card > img{
+  width:100%;
+  height:var(--event-thumb-height);
+  object-fit:var(--event-thumb-fit);
+}
+@media(max-width:767px){
+  .event-carousel-viewport{
+    overflow-x:auto;
+    cursor:grab;
+    scroll-snap-type:x proximity;
+  }
+  .event-carousel-track{gap:12px}
+  .event-carousel-track .event-card{
+    flex:0 0 82vw;
+    width:82vw;
+    scroll-snap-align:start;
+  }
+  .event-carousel-track .event-card > img{
+    height:auto !important;
+    min-height:0 !important;
+    aspect-ratio:auto;
+    object-fit:contain !important;
+  }
+}
+
+/* =========================================================
+   V35 — EVENT DETAIL VIDEO
+   ========================================================= */
+.detail-video{
+  display:block;
+  width:100%;
+  max-width:1200px;
+  height:auto;
+  margin:0 auto 36px;
+  border-radius:18px;
+  background:#08090b;
+}

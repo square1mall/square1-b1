@@ -1,0 +1,90 @@
+# THE GREAT SQUARE1 B1 v20
+
+v14에서 잘못 연결된 상단 로고를 logo.png로 복구했습니다.
+메인 이미지는 .hero-image 배경으로 정상 연결됩니다.
+
+## 메인 이미지 조절 — style.css 맨 위
+
+PC:
+--pc-height:1000px;
+--pc-x:50%;
+--pc-y:35%;
+
+모바일:
+--mobile-height:760px;
+--mobile-x:50%;
+--mobile-y:50%;
+
+X = 좌우 / Y = 상하
+height = 메인 영역 높이
+
+PC는 images/main-pc.jpg
+모바일은 images/main-mobile.jpg
+
+수정 후 Ctrl+S → Ctrl+F5
+
+
+[NEW] EVENT & PROMOTION 설정
+style.css 상단의 'EVENT & PROMOTION 섹션 수정 영역'에서 아래 항목을 수정하세요.
+- event-heading-* : EVENT & PROMOTION / 지금 진행 중인 이벤트의 크기, 폰트, 굵기, 자간, 색상, 위치
+- event-all-* : 전체보기 글씨 크기, 폰트, 자간, 색상, 위치
+- event-card-* : 카드 분류/제목/날짜의 크기, 폰트, 굵기, 자간, 색상, 위치
+- event-image-* : 카드 이미지 크기, 위치, 배경색, 확대 정도
+- event-text-* : 카드 텍스트 영역의 여백과 위치
+- event-card-radius / event-card-bg : 카드 모서리와 배경
+- event-cards-left / event-cards-top : 카드 전체 위치
+
+[NEW] 이벤트 클릭 페이지
+- events.html : 전체 이벤트 페이지
+- event01.html : 첫 번째 이벤트 상세 페이지
+- event02.html : 두 번째 이벤트 상세 페이지
+- event03.html : 세 번째 이벤트 상세 페이지
+
+카드의 href="event01.html" 같은 부분을 다른 주소로 바꾸면 외부 홈페이지/예약 페이지 등으로도 연결할 수 있습니다.
+
+
+[NEW] EVENT 상세페이지 수정
+event-detail.css 맨 위의 'EVENT 상세페이지 수정 영역'에서 수정합니다.
+
+★ 상세 이미지
+- 기본값은 width:100% + height:auto + object-fit:contain이라 원본 비율을 유지하고 이미지가 잘리지 않습니다.
+- --detail-image-width : 이미지 너비
+- --detail-image-max-width : 이미지 최대 너비
+- --detail-image-radius : 모서리 둥글기
+- --detail-image-margin-top / bottom : 이미지 위아래 여백
+- --detail-image-left / top : 이미지 위치
+
+★ 상세페이지 글씨
+- --detail-label-* : EVENT / OPEN EVENT / SPECIAL EVENT
+- --detail-title-* : 상세페이지 제목
+- --detail-date-* : 날짜
+- --detail-copy-* : 상세 설명 본문
+- --detail-info-title-* : EVENT INFORMATION 제목
+- --detail-info-text-* : EVENT INFORMATION 내용
+- --detail-button-* : 하단 버튼
+각 항목은 크기(size), 폰트(font), 굵기(weight), 자간(spacing), 색상(color), 위치(left/top)를 조절할 수 있습니다.
+
+★ 이벤트별 페이지
+event01.html / event02.html / event03.html의 이미지, 제목, 날짜, 설명을 원하는 실제 내용으로 바꿔 사용할 수 있습니다.
+
+[V18] 이벤트 상세페이지 관리
+1. event01.html / event02.html / event03.html을 복사해서 새 이벤트를 만들 수 있습니다.
+2. 제목은 <h1 class="detail-title">...</h1>
+3. 날짜는 <p class="detail-date">...</p>
+4. 이미지 경로는 <img class="detail-hero" src="images/파일명.jpg">
+5. 본문은 <div class="detail-copy"> 안에 작성합니다.
+6. 참여 버튼을 만들려면 주석 처리된 detail-actions 예시를 사용하고 href에 실제 주소를 넣습니다.
+7. 상세 이미지에는 height:auto와 object-fit:contain이 적용되어 원본 비율이 유지됩니다.
+8. 상세페이지 글씨/이미지 조절은 event-detail.css 맨 위의 설정 영역에서 합니다.
+
+
+[V19] 카드용 이미지와 상세페이지 이미지 분리
+- 메인 카드 썸네일: images/event01-thumb.jpg / event02-thumb.jpg / event03-thumb.jpg
+- 상세페이지 원본: images/event01.jpg / event02.jpg / event03.jpg
+- 새 이벤트를 추가할 때는 썸네일과 상세 이미지를 각각 준비합니다.
+- style.css 맨 위의 EVENT 카드 썸네일 설정에서 높이, 잘림 여부, 위치, 확대/축소를 조절할 수 있습니다.
+- --event-thumb-fit: cover = 카드 꽉 채우기(잘릴 수 있음)
+- --event-thumb-fit: contain = 이미지 전체 표시(빈 공간이 생길 수 있음)
+- --event-thumb-x / y = 이미지 위치
+- --event-thumb-scale = 확대/축소
+- 메인 카드 클릭 연결은 index.html의 href="event01.html" 같은 부분에서 변경합니다.
