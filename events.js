@@ -138,10 +138,19 @@ const HERO_SLIDES = [
     start: 0,
     end: 15
   },
+  // ⭐ JPG 이미지 1
   {
     type: "image",
-    pc: "images/main-pc.jpg",
-    mobile: "images/main-mobile.jpg",
+    pc: "images/main-pc-01.jpg",
+    mobile: "images/main-mobile-01.jpg",
+    duration: 5
+  },
+
+  // ⭐ JPG 이미지 2
+  {
+    type: "image",
+    pc: "images/main-pc-02.jpg",
+    mobile: "images/main-mobile-02.jpg",
     duration: 5
   }
 ];
