@@ -1,0 +1,26 @@
+THE GREAT SQUARE1 B1 — V37 업데이트 안내
+
+1. PC 이벤트 슬라이더에 이전/다음 화살표를 추가했습니다.
+2. PC에서 마우스로 이벤트 카드를 좌우 드래그할 수 있습니다.
+3. PC 자동 이동은 유지되며, 마우스를 올리면 일시 정지합니다.
+4. 모바일은 자동 이동과 화살표 없이 손가락 스와이프만 사용합니다.
+5. 위 기능은 '마케팅 이벤트 & 프로모션'과 '브랜드 이벤트 & 할인' 양쪽에 적용됩니다.
+6. 상세페이지 동영상 기능(detailVideo)을 유지하고 PC/모바일 반응형 크기를 보완했습니다.
+
+[상세페이지 동영상 등록]
+events.js의 해당 이벤트 항목에 아래처럼 입력하세요.
+detailVideo: "images/event01-video.mp4",
+동영상 파일은 images 폴더 안에 넣어주세요.
+detailVideo가 지정되지 않으면 detailImage 이미지가 표시됩니다.
+동영상은 상세페이지에서 재생 버튼을 눌러 재생합니다.
+
+[메인 배너 영상 파일]
+images/main-video-pc.mp4
+images/main-video-mobile.mp4
+
+[층별 안내 이미지]
+images/floor-map.jpg
+
+[GitHub 업로드]
+압축을 푼 뒤 THE_GREAT_SQUARE1_B1_v37 폴더 안의 파일과 images 폴더를
+저장소 최상위(root)에 업로드하세요. 폴더 자체를 한 단계 더 넣지 마세요.

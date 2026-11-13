@@ -346,95 +346,115 @@ function escapeHtml(value) {
 function renderEventCarousel(listEl, events, key) {
   if (!listEl) return;
   listEl.innerHTML = "";
-
   if (!events.length) {
     listEl.innerHTML = '<p class="event-empty">현재 진행 중인 이벤트가 없습니다.</p>';
     return;
   }
-
-  // 모바일은 자연스러운 터치 스크롤, PC는 JS로 연속 자동 이동합니다.
+  const shell = document.createElement("div");
+  shell.className = "event-carousel-shell";
   const viewport = document.createElement("div");
   viewport.className = "event-carousel-viewport";
   viewport.dataset.carousel = key;
-
   const track = document.createElement("div");
   track.className = "event-carousel-track";
 
-  // 카드가 부족해도 PC에서 자연스럽게 흐르도록 최소 2세트를 만듭니다.
-  const copies = events.length === 1 ? 1 : Math.max(2, Math.ceil(8 / events.length));
-  for (let i = 0; i < copies; i++) {
-    events.forEach(event => track.appendChild(createEventCard(event)));
+  events.forEach(event => track.appendChild(createEventCard(event)));
+  if (events.length > 1) {
+    events.forEach(event => {
+      const clone = createEventCard(event);
+      clone.setAttribute("aria-hidden", "true");
+      clone.dataset.carouselClone = "true";
+      track.appendChild(clone);
+    });
   }
-
   viewport.appendChild(track);
-  listEl.appendChild(viewport);
-
-  setupEventCarousel(viewport, track, events.length, key);
+  shell.appendChild(viewport);
+  if (events.length > 1) {
+    const controls = document.createElement("div");
+    controls.className = "event-carousel-controls";
+    controls.innerHTML = `
+      <button type="button" class="event-carousel-arrow event-carousel-prev" aria-label="이전 이벤트">‹</button>
+      <button type="button" class="event-carousel-arrow event-carousel-next" aria-label="다음 이벤트">›</button>
+    `;
+    shell.appendChild(controls);
+  }
+  listEl.appendChild(shell);
+  setupEventCarousel(viewport, track, events.length, shell);
 }
 
-function setupEventCarousel(viewport, track, originalCount, key) {
+function setupEventCarousel(viewport, track, originalCount, shell) {
   if (originalCount <= 1) return;
-  let raf = null;
-  let paused = false;
-  let dragging = false;
-  let startX = 0;
-  let startScroll = 0;
-  let lastTime = performance.now();
-  const speed = 28; // PC 자동 이동 속도(px/sec)
+  let raf = null, paused = false, dragging = false;
+  let startX = 0, startScroll = 0, lastTime = performance.now();
+  const speed = 28;
 
-  function isDesktop() {
-    return window.matchMedia("(min-width: 768px)").matches;
+  function isDesktop() { return window.matchMedia("(min-width: 768px)").matches; }
+  function oneSetWidth() {
+    const secondSetFirst = track.children[originalCount];
+    return secondSetFirst ? secondSetFirst.offsetLeft - track.offsetLeft : track.scrollWidth / 2;
   }
+  function normalizeScroll() {
+    const distance = oneSetWidth();
+    if (distance <= 0) return;
+    if (viewport.scrollLeft >= distance) viewport.scrollLeft -= distance;
+    if (viewport.scrollLeft < 0) viewport.scrollLeft += distance;
+  }
+  function moveOne(direction) {
+    const first = track.querySelector(".event-card");
+    if (!first) return;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    const amount = first.getBoundingClientRect().width + gap;
+    paused = true;
+    viewport.scrollTo({left: viewport.scrollLeft + direction * amount, behavior:"smooth"});
+    window.setTimeout(() => {
+      normalizeScroll();
+      paused = false;
+      lastTime = performance.now();
+    }, 450);
+  }
+  const prev = shell.querySelector(".event-carousel-prev");
+  const next = shell.querySelector(".event-carousel-next");
+  if (prev) prev.addEventListener("click", () => moveOne(-1));
+  if (next) next.addEventListener("click", () => moveOne(1));
 
   function tick(now) {
     const dt = Math.min(50, now - lastTime) / 1000;
     lastTime = now;
-
     if (isDesktop() && !paused && !dragging) {
       viewport.scrollLeft += speed * dt;
-      const half = track.scrollWidth / 2;
-      if (half > 0 && viewport.scrollLeft >= half) {
-        viewport.scrollLeft -= half;
-      }
+      normalizeScroll();
     }
     raf = requestAnimationFrame(tick);
   }
-
-  viewport.addEventListener("mouseenter", () => paused = true);
-  viewport.addEventListener("mouseleave", () => paused = false);
-
-  viewport.addEventListener("mousedown", e => {
-    if (!isDesktop()) return;
-    dragging = true;
-    startX = e.clientX;
-    startScroll = viewport.scrollLeft;
-    viewport.classList.add("is-dragging");
+  viewport.addEventListener("mouseenter", () => { if (isDesktop()) paused = true; });
+  viewport.addEventListener("mouseleave", () => {
+    if (isDesktop() && !dragging) { paused = false; lastTime = performance.now(); }
   });
-
+  viewport.addEventListener("mousedown", e => {
+    if (!isDesktop() || e.button !== 0) return;
+    dragging = true; startX = e.clientX; startScroll = viewport.scrollLeft;
+    viewport.classList.add("is-dragging"); paused = true;
+  });
   window.addEventListener("mousemove", e => {
     if (!dragging) return;
     viewport.scrollLeft = startScroll - (e.clientX - startX);
+    normalizeScroll();
   });
-
   window.addEventListener("mouseup", () => {
-    dragging = false;
-    viewport.classList.remove("is-dragging");
+    if (!dragging) return;
+    dragging = false; viewport.classList.remove("is-dragging");
+    if (!viewport.matches(":hover")) paused = false;
+    lastTime = performance.now();
   });
-
-  viewport.addEventListener("touchstart", e => {
-    if (isDesktop()) return;
-    startX = e.touches[0].clientX;
-    startScroll = viewport.scrollLeft;
-  }, {passive:true});
-
-  viewport.addEventListener("touchmove", e => {
-    if (isDesktop()) return;
-    const dx = startX - e.touches[0].clientX;
-    viewport.scrollLeft = startScroll + dx;
-  }, {passive:true});
-
-  cancelAnimationFrame(raf);
-  raf = requestAnimationFrame(tick);
+  // 모바일은 자동 이동 없이 손가락 스와이프만 사용합니다.
+  viewport.addEventListener("touchstart", () => {}, {passive:true});
+  function startDesktopLoop() {
+    if (raf !== null) cancelAnimationFrame(raf);
+    raf = null;
+    if (isDesktop()) { lastTime = performance.now(); raf = requestAnimationFrame(tick); }
+  }
+  startDesktopLoop();
+  window.addEventListener("resize", startDesktopLoop);
 }
 
 function renderBrandCarousel() {
