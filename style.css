@@ -231,7 +231,7 @@ a{color:inherit;text-decoration:none}
 .top-great-logo{display:block;width:min(34vw,var(--great-logo-width));transform:translate(var(--logo-left),var(--logo-top))}
 .top-great-logo img{display:block;width:100%;height:auto}
 .mini-logo{font:700 18px/1 "Space Grotesk";letter-spacing:-.06em}.mini-logo span{display:block;font-size:7px;letter-spacing:.12em;margin-top:4px}
-.menu-btn{width:44px;height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.65);display:grid;place-content:center;gap:5px}.menu-btn i{width:18px;height:2px;background:#fff;display:block}
+
 
 .hero{height:var(--pc-height);position:relative;display:flex;align-items:flex-end;overflow:hidden}
 .hero-image{position:absolute;inset:0;background-image:url("images/main-pc.jpg");background-size:cover;background-position:var(--pc-x) var(--pc-y)}
@@ -309,7 +309,38 @@ a{color:inherit;text-decoration:none}
 .heading-row{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.heading-row h2{margin:0}.heading-row>a{font-size:11px;color:#cfd3d9}
 .event-list{display:grid;gap:var(--event-card-gap)}.event-card{display:grid;grid-template-columns:40% 1fr auto;min-height:112px;background:var(--event-card-bg);color:#15171a;border-radius:var(--event-card-radius);overflow:hidden;align-items:center}.event-card img{width:100%;height:100%;min-height:112px;object-fit:var(--event-thumb-fit);object-position:var(--event-thumb-x) var(--event-thumb-y);background:var(--event-image-bg)}.event-card-text{padding:var(--event-text-padding-top) var(--event-text-padding-right) var(--event-text-padding-bottom) var(--event-text-padding-left);transform:translate(var(--event-text-left),var(--event-text-top))}.event-card-text small{color:var(--event-card-label-color);font-family:var(--event-card-label-font);font-size:var(--event-card-label-size);font-weight:var(--event-card-label-weight);letter-spacing:var(--event-card-label-spacing);display:block;transform:translate(var(--event-card-label-left),var(--event-card-label-top))}.event-card-text h3{font-size:var(--event-card-title-size);line-height:1.3;margin:4px 0;color:var(--event-card-title-color);font-family:var(--event-card-title-font);font-weight:var(--event-card-title-weight);letter-spacing:var(--event-card-title-spacing);transform:translate(var(--event-card-title-left),var(--event-card-title-top))}.event-card-text p{margin:0;color:var(--event-card-date-color);font-family:var(--event-card-date-font);font-size:var(--event-card-date-size);font-weight:var(--event-card-date-weight);letter-spacing:var(--event-card-date-spacing);transform:translate(var(--event-card-date-left),var(--event-card-date-top))}.event-card>b{margin-right:10px;width:var(--event-card-arrow-size);height:var(--event-card-arrow-size);border-radius:50%;background:var(--event-card-arrow-bg);color:var(--event-card-arrow-color);display:grid;place-items:center;font-size:calc(var(--event-card-arrow-size) * .48);line-height:1}
 .brand-scroller{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;margin-right:-20px;padding-right:20px}.brand-scroller::-webkit-scrollbar{display:none}.brand-card{min-width:140px;height:125px;border-radius:15px;background:#f4f4f1;overflow:hidden}.brand-card img{width:100%;height:100%;object-fit:cover;background:#eee}
-.floor-section{background:#111418}.floor-section .desc{color:#a7abb1;font-size:var(--floor-desc-size);line-height:var(--floor-desc-line-height);margin:0 0 22px}.floor-section .outline-btn{font-size:var(--floor-btn-size)}.floor-map{margin-top:28px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);min-height:260px}.floor-map img{display:block;width:100%;height:100%;min-height:260px;object-fit:cover;background:#171a1e}
+.floor-section{background:#111418}.floor-section .desc{color:#a7abb1;font-size:var(--floor-desc-size);line-height:var(--floor-desc-line-height);margin:0 0 22px}.floor-section .outline-btn{font-size:var(--floor-btn-size)}.
+/* ⭐ B1 FLOOR MAP - PC / MOBILE */
+.floor-map{
+  margin-top:28px;
+  width:100%;
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius:20px;
+  overflow:hidden;
+  background:#171a1e;
+}
+
+.floor-map picture{
+  display:block;
+  width:100%;
+}
+
+.floor-map img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  background:#171a1e;
+}
+
+/* 모바일 이미지 */
+@media(max-width:767px){
+  .floor-map{
+    max-width:100%;
+  }
+}
 .closing{padding:80px 20px 110px;text-align:center;background:#08090b}.closing h2{font-size:28px;margin-bottom:30px}.closing-links{display:grid;text-align:left}.closing-links a{display:flex;justify-content:space-between;padding:15px 2px;border-top:1px solid rgba(255,255,255,.12);font:600 10px "Space Grotesk"}.closing-links a:last-child{border-bottom:1px solid rgba(255,255,255,.12)}
 footer{padding:25px 20px 90px;color:#686d74;background:#08090b;font-size:8px;display:flex;justify-content:space-between}.mobile-nav{position:fixed;z-index:20;bottom:0;left:0;right:0;height:64px;background:rgba(8,9,11,.95);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(5,1fr)}.mobile-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#8d9299;font:600 7px "Space Grotesk"}.mobile-nav a span{font-size:16px}.mobile-nav a.active{color:#fff}
 
@@ -811,6 +842,7 @@ footer{padding:25px 20px 90px;color:#686d74;background:#08090b;font-size:8px;dis
 .event-carousel-shell{position:relative;width:100%}
 .event-carousel-controls{display:flex;justify-content:flex-end;gap:8px;margin:0 0 14px}
 .event-carousel-arrow{display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid rgba(255,255,255,.38);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font:400 25px/1 Arial,sans-serif;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.event-carousel-arrow:disabled{opacity:.35;cursor:not-allowed;transform:none}
 .event-carousel-arrow:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.8);transform:translateY(-1px)}
 .event-carousel-viewport{width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch;user-select:none}
 .event-carousel-viewport::-webkit-scrollbar{display:none}

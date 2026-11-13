@@ -1,3 +1,44 @@
+/*
+=================================================================
+THE GREAT SQUARE1 B1 — 관리 파일 빠른 목차
+아래 순서대로 찾아 수정하면 홈페이지의 위→아래 순서와 같습니다.
+
+[01] MAIN
+     메인 히어로 이미지/영상, PC·모바일 영상 경로
+     검색: [01] MAIN — HERO
+
+[02] NOW AT B1
+     메인 화면의 NOW AT B1 카테고리 문구/링크는 index.html에서 수정
+     검색: id="now" 또는 NOW AT B1
+
+[03] EVENT & PROMOTION
+     마케팅 이벤트 카드/기간/상세내용은 EVENTS 배열에서
+     type: "marketing" 항목을 수정
+     검색: [03] EVENT & PROMOTION
+
+[04] BRAND EVENT
+     브랜드 이벤트 카드/기간/상세내용은 EVENTS 배열에서
+     type: "brand" 항목을 수정
+     검색: [04] BRAND EVENT
+
+[05] B1 BRAND
+     브랜드 로고 목록은 BRAND_LOGOS 배열에서 수정
+     검색: [05] B1 BRAND
+
+[06] B1 FLOOR GUIDE
+     층별안내 문구/이미지는 index.html과 images/floor-map.jpg에서 수정
+     검색: id="floor" 또는 B1 FLOOR GUIDE
+
+[07] MORE SQUARE1
+     하단 바로가기 주소는 QUICK_LINKS에서 수정
+     검색: [07] MORE SQUARE1
+
+※ 홈페이지에 보이는 섹션 순서와 관리용 코드 위치를 맞추기 위한 안내입니다.
+※ [02] NOW AT B1, [06] B1 FLOOR GUIDE의 화면 문구·배치는 index.html에서 수정합니다.
+※ HTML에 있는 문구·배치는 index.html, 이미지·영상 파일은 images 폴더에서 관리합니다.
+=================================================================
+*/
+
 /* =========================================================
    THE GREAT SQUARE1 B1 — EVENT MANAGEMENT CENTER (V28)
 
@@ -54,14 +95,14 @@
    ======================================================== */
 
 // =========================================================
-// [START] ⭐ 이벤트 관리 영역 — 이 부분만 수정하세요!
+// [03] EVENT & PROMOTION / [04] BRAND EVENT — 이벤트 관리 영역
 //
 // ⭐ 구역 구분: type: "marketing" = 마케팅팀 이벤트 / type: "brand" = 입점 브랜드 이벤트
 // ⭐ 예: type: "brand"로 바꾸면 메인 화면의 BRAND EVENT 영역에 표시됩니다.
 // =========================================================
 
 // =========================================================
-// [START] ⭐ 바로가기 링크 관리 영역 — 이 부분만 수정하세요!
+// [07] MORE SQUARE1 — 하단 바로가기 링크 관리 영역
 //
 // ⭐ 메인 홈 화면 맨 아래 MORE SQUARE1 바로가기 링크입니다.
 // ⭐ 홈페이지 / 인스타그램 / 카카오톡 채널 주소만 바꾸면 됩니다.
@@ -76,7 +117,7 @@ const QUICK_LINKS = {
 
 
 // =========================================================
-// ⭐ HERO 메인 배너 관리 영역 — 여기만 수정하세요!
+// [01] MAIN — HERO 메인 배너 관리 영역 (PC/모바일 이미지·영상)
 // type: "image" / "video"
 // image: pc + mobile 각각 파일 지정
 // video: pc / mobile 영상을 각각 지정할 수 있습니다.
@@ -101,12 +142,12 @@ const HERO_SLIDES = [
     type: "image",
     pc: "images/main-pc.jpg",
     mobile: "images/main-mobile.jpg",
-    duration: 3
+    duration: 5
   }
 ];
 
 // =========================================================
-// ⭐ B1 브랜드 로고 관리 영역 — 여기만 수정하세요!
+// [05] B1 BRAND — 브랜드 로고 관리 영역
 // 6개를 넘으면 PC에서는 6개씩 보이고, 1개씩 이동합니다.
 // 모바일에서는 손가락으로 좌우 스와이프할 수 있습니다.
 // =========================================================
@@ -125,7 +166,7 @@ const EVENTS = [
     order: 1,
     id: "event01",
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "marketing",
+    type: "marketing", // [03] EVENT & PROMOTION
     mode: "auto",
     startDate: "2026-10-25",
     startTime: "10:00",
@@ -170,7 +211,7 @@ const EVENTS = [
     order: 2,
     id: "event02",
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "brand",
+    type: "brand", // [04] BRAND EVENT
     mode: "auto",
     startDate: "2026-10-23",
     startTime: "10:00",
@@ -200,7 +241,7 @@ const EVENTS = [
     order: 3,
     id: "event03",
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "marketing",
+    type: "marketing", // [03] EVENT & PROMOTION
     mode: "auto",
     startDate: "2026-10-22",
     startTime: "10:00",
@@ -230,7 +271,7 @@ const EVENTS = [
     order: 4,
     id: "event04",
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "marketing",
+    type: "marketing", // [03] EVENT & PROMOTION
     mode: "auto",
     startDate: "2026-10-25",
     startTime: "10:00",
@@ -369,12 +410,13 @@ function renderEventCarousel(listEl, events, key) {
   }
   viewport.appendChild(track);
   shell.appendChild(viewport);
-  if (events.length > 1) {
+  // 마케팅 이벤트와 브랜드 이벤트 모두 같은 PC 화살표 컨트롤을 사용합니다.
+  {
     const controls = document.createElement("div");
     controls.className = "event-carousel-controls";
     controls.innerHTML = `
-      <button type="button" class="event-carousel-arrow event-carousel-prev" aria-label="이전 이벤트">‹</button>
-      <button type="button" class="event-carousel-arrow event-carousel-next" aria-label="다음 이벤트">›</button>
+      <button type="button" class="event-carousel-arrow event-carousel-prev" aria-label="이전 이벤트" ${events.length <= 1 ? "disabled" : ""}>‹</button>
+      <button type="button" class="event-carousel-arrow event-carousel-next" aria-label="다음 이벤트" ${events.length <= 1 ? "disabled" : ""}>›</button>
     `;
     shell.appendChild(controls);
   }

@@ -9,7 +9,6 @@
 <body>
 <header class="topbar">
   <a class="mini-logo top-great-logo" href="#top"><img src="images/logo.png" alt="THE GREAT SQUARE1"></a>
-  <button class="menu-btn" aria-label="메뉴"><i></i><i></i><i></i></button>
 </header>
 
 <main id="top">
@@ -65,7 +64,18 @@
   <div><p class="eyebrow">B1 FLOOR GUIDE</p><h2>새롭게 바뀐 B1을<br>한눈에 만나보세요.</h2><p class="desc">쇼핑부터 라이프스타일까지<br>새로운 공간을 확인해보세요.</p><a class="outline-btn" href="https://www.square1.co.kr/store/floor.php?Category=B1" target="_blank" rel="noopener noreferrer">
   FLOOR MAP ↗
 </a></div>
-  <div class="floor-map" id="floor-map"><img src="images/floor-map.jpg" alt="B1 FLOOR MAP"></div>
+<div class="floor-map" id="floor-map">
+  <picture>
+    <source
+      media="(max-width: 720px)"
+      srcset="images/floor-map-mobile.jpg"
+    >
+    <img
+      src="images/floor-map-pc.jpg"
+      alt="B1 FLOOR MAP"
+    >
+  </picture>
+</div>
 </section>
 
 <section class="closing">
