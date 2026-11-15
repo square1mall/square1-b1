@@ -502,18 +502,25 @@ function setupEventCarousel(viewport, track, originalCount, shell) {
   }
 
   function oneSetWidth() {
+    // offsetLeft는 레이아웃 구조에 따라 기준점이 달라질 수 있어,
+    // 실제 화면 좌표 차이로 첫 번째 묶음의 정확한 너비를 계산합니다.
+    const firstCard = track.children[0];
     const secondSetFirst = track.children[originalCount];
-    return secondSetFirst
-      ? secondSetFirst.offsetLeft - track.offsetLeft
-      : track.scrollWidth / 2;
+    if (!firstCard || !secondSetFirst) return 0;
+
+    return secondSetFirst.getBoundingClientRect().left
+      - firstCard.getBoundingClientRect().left;
   }
 
   function normalizeScroll() {
     const distance = oneSetWidth();
     if (distance <= 0) return;
 
-    if (viewport.scrollLeft >= distance) viewport.scrollLeft -= distance;
-    if (viewport.scrollLeft < 0) viewport.scrollLeft += distance;
+    // 복제된 두 번째 묶음 끝에 도달하면 첫 번째 묶음의 같은 위치로 되돌립니다.
+    // 나머지 위치를 유지하므로 마지막 카드에서 첫 카드로 끊김 없이 이어집니다.
+    if (viewport.scrollLeft >= distance || viewport.scrollLeft < 0) {
+      viewport.scrollLeft = ((viewport.scrollLeft % distance) + distance) % distance;
+    }
   }
 
   function resumeIfPossible() {
