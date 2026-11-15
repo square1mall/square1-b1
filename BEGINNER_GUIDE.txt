@@ -88,3 +88,10 @@ event01.html / event02.html / event03.html의 이미지, 제목, 날짜, 설명�
 - --event-thumb-x / y = 이미지 위치
 - --event-thumb-scale = 확대/축소
 - 메인 카드 클릭 연결은 index.html의 href="event01.html" 같은 부분에서 변경합니다.
+
+[이벤트 슬라이더 참고]
+- PC에서는 이벤트 카드가 2개 이상일 때 자동으로 흐릅니다.
+- 기본 속도는 events.js의 setupEventCarousel 안 const speed = 36 (px/초)에서 조절합니다.
+- PC에서 마우스를 카드 영역에 올리면 일시정지하고, 벗어나면 자동 재개됩니다.
+- 브랜드 이벤트처럼 현재 노출 카드가 1개뿐이면 이동할 카드가 없어 자동 슬라이드는 작동하지 않습니다.
+- 모바일은 기존처럼 손가락 스와이프 방식입니다.

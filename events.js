@@ -483,35 +483,65 @@ function renderEventCarousel(listEl, events, key) {
 }
 
 function setupEventCarousel(viewport, track, originalCount, shell) {
+  // 카드가 1개뿐이면 자동 이동할 다음 카드가 없으므로 정지 상태로 둡니다.
   if (originalCount <= 1) return;
-  let raf = null, paused = false, dragging = false;
-  let startX = 0, startScroll = 0, lastTime = performance.now();
-  const speed = 28;
 
-  function isDesktop() { return window.matchMedia("(min-width: 768px)").matches; }
+  let raf = null;
+  let paused = false;
+  let dragging = false;
+  let pointerInside = false;
+  let startX = 0;
+  let startScroll = 0;
+  let lastTime = performance.now();
+
+  // PC 자동 이동 속도(px/초)
+  const speed = 36;
+
+  function isDesktop() {
+    return window.matchMedia("(min-width: 768px)").matches;
+  }
+
   function oneSetWidth() {
     const secondSetFirst = track.children[originalCount];
-    return secondSetFirst ? secondSetFirst.offsetLeft - track.offsetLeft : track.scrollWidth / 2;
+    return secondSetFirst
+      ? secondSetFirst.offsetLeft - track.offsetLeft
+      : track.scrollWidth / 2;
   }
+
   function normalizeScroll() {
     const distance = oneSetWidth();
     if (distance <= 0) return;
+
     if (viewport.scrollLeft >= distance) viewport.scrollLeft -= distance;
     if (viewport.scrollLeft < 0) viewport.scrollLeft += distance;
   }
+
+  function resumeIfPossible() {
+    if (!pointerInside && !dragging && isDesktop() && document.visibilityState !== "hidden") {
+      paused = false;
+      lastTime = performance.now();
+    }
+  }
+
   function moveOne(direction) {
     const first = track.querySelector(".event-card");
     if (!first) return;
+
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
     const amount = first.getBoundingClientRect().width + gap;
+
     paused = true;
-    viewport.scrollTo({left: viewport.scrollLeft + direction * amount, behavior:"smooth"});
+    viewport.scrollTo({
+      left: viewport.scrollLeft + direction * amount,
+      behavior: "smooth"
+    });
+
     window.setTimeout(() => {
       normalizeScroll();
-      paused = false;
-      lastTime = performance.now();
-    }, 450);
+      resumeIfPossible();
+    }, 500);
   }
+
   const prev = shell.querySelector(".event-carousel-prev");
   const next = shell.querySelector(".event-carousel-next");
   if (prev) prev.addEventListener("click", () => moveOne(-1));
@@ -520,39 +550,77 @@ function setupEventCarousel(viewport, track, originalCount, shell) {
   function tick(now) {
     const dt = Math.min(50, now - lastTime) / 1000;
     lastTime = now;
-    if (isDesktop() && !paused && !dragging) {
+
+    if (isDesktop() && !paused && !dragging && document.visibilityState !== "hidden") {
       viewport.scrollLeft += speed * dt;
       normalizeScroll();
     }
+
     raf = requestAnimationFrame(tick);
   }
-  viewport.addEventListener("mouseenter", () => { if (isDesktop()) paused = true; });
-  viewport.addEventListener("mouseleave", () => {
-    if (isDesktop() && !dragging) { paused = false; lastTime = performance.now(); }
+
+  // 마우스가 이벤트 카드 영역에 있을 때만 일시정지하고, 벗어나면 자동 재개합니다.
+  viewport.addEventListener("pointerenter", event => {
+    if (event.pointerType === "mouse" && isDesktop()) {
+      pointerInside = true;
+      paused = true;
+    }
   });
-  viewport.addEventListener("mousedown", e => {
-    if (!isDesktop() || e.button !== 0) return;
-    dragging = true; startX = e.clientX; startScroll = viewport.scrollLeft;
-    viewport.classList.add("is-dragging"); paused = true;
+
+  viewport.addEventListener("pointerleave", event => {
+    if (event.pointerType === "mouse") {
+      pointerInside = false;
+      resumeIfPossible();
+    }
   });
-  window.addEventListener("mousemove", e => {
+
+  viewport.addEventListener("mousedown", event => {
+    if (!isDesktop() || event.button !== 0) return;
+    dragging = true;
+    startX = event.clientX;
+    startScroll = viewport.scrollLeft;
+    viewport.classList.add("is-dragging");
+    paused = true;
+  });
+
+  window.addEventListener("mousemove", event => {
     if (!dragging) return;
-    viewport.scrollLeft = startScroll - (e.clientX - startX);
+    viewport.scrollLeft = startScroll - (event.clientX - startX);
     normalizeScroll();
   });
+
   window.addEventListener("mouseup", () => {
     if (!dragging) return;
-    dragging = false; viewport.classList.remove("is-dragging");
-    if (!viewport.matches(":hover")) paused = false;
-    lastTime = performance.now();
+    dragging = false;
+    viewport.classList.remove("is-dragging");
+    resumeIfPossible();
   });
-  // 모바일은 자동 이동 없이 손가락 스와이프만 사용합니다.
-  viewport.addEventListener("touchstart", () => {}, {passive:true});
+
+  // 브라우저 탭 전환/복귀 시 자동 이동 상태가 멈춰 남지 않도록 처리합니다.
+  window.addEventListener("blur", () => { paused = true; });
+  window.addEventListener("focus", resumeIfPossible);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      paused = true;
+    } else {
+      resumeIfPossible();
+      lastTime = performance.now();
+    }
+  });
+
+  // 모바일은 기존처럼 자동 이동 없이 터치 스와이프만 사용합니다.
+  viewport.addEventListener("touchstart", () => {}, { passive: true });
+
   function startDesktopLoop() {
     if (raf !== null) cancelAnimationFrame(raf);
     raf = null;
-    if (isDesktop()) { lastTime = performance.now(); raf = requestAnimationFrame(tick); }
+
+    if (isDesktop()) {
+      lastTime = performance.now();
+      raf = requestAnimationFrame(tick);
+    }
   }
+
   startDesktopLoop();
   window.addEventListener("resize", startDesktopLoop);
 }
