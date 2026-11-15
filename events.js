@@ -226,15 +226,15 @@ const EVENTS = [
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
     type: "marketing", // [03] EVENT & PROMOTION
     mode: "auto",
-    startDate: "2026-10-25",
+    startDate: "2026-11-01",
     startTime: "10:00",
-    endDate: "2026-11-30",
+    endDate: "2026-12-30",
     endTime: "22:00",
 
     // ⭐ ② 카드에 표시되는 정보
     label: "EVENT",
     title: "신규 오픈 기념 특별 이벤트",
-    dateText: "2026. 10. 25 — 11. 30",
+    dateText: "2026. 11. 01 — 12. 30",
     thumb: "images/event01-thumb.jpg",
 
     // ⭐ ③ 상세페이지 맨 위 메인 이미지
@@ -259,7 +259,7 @@ const EVENTS = [
 
     // ⭐ ⑤ EVENT INFORMATION — 필요한 것만 남기고 순서도 자유롭게 변경
     info: [
-      { label: "기간", value: "2026. 10. 25 — 11. 30" },
+      { label: "기간", value: "2026. 11. 01 — 12. 30" },
       { label: "장소", value: "THE GREAT SQUARE1 B1" },
       { label: "참여방법", value: "" }
     ]
@@ -271,14 +271,14 @@ const EVENTS = [
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
     type: "brand", // [04] BRAND EVENT
     mode: "auto",
-    startDate: "2026-10-23",
+    startDate: "2026-11-05",
     startTime: "10:00",
-    endDate: "2026-11-20",
+    endDate: "2026-12-30",
     endTime: "22:00",
 
     label: "OPEN EVENT",
     title: "새롭게 만나는 B1 신규 브랜드",
-    dateText: "2026. 10. 23 — 11. 20",
+    dateText: "2026. 11. 05 — 12. 30",
     thumb: "images/event02-thumb.jpg",
     detailImage: "images/event02.jpg",
 
@@ -289,7 +289,7 @@ const EVENTS = [
     ],
 
     info: [
-      { label: "기간", value: "2026. 10. 23 — 11. 20 " },
+      { label: "기간", value: "2026. 11. 05 — 12. 30 " },
       { label: "장소", value: "THE GREAT SQUARE1 B1" },
       { label: "참여방법", value: "" }
     ]
@@ -301,14 +301,14 @@ const EVENTS = [
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
     type: "marketing", // [03] EVENT & PROMOTION
     mode: "auto",
-    startDate: "2026-10-22",
+    startDate: "2026-11-04",
     startTime: "10:00",
-    endDate: "2026-11-03",
+    endDate: "2026-12-31",
     endTime: "22:00",
 
     label: "SPECIAL EVENT",
     title: "B1 GRAND OPENING EVENT",
-    dateText: "2026. 10. 22 — 11. 03",
+    dateText: "2026. 11. 04 — 12. 31",
     thumb: "images/event03-thumb.jpg",
     detailImage: "images/event03.jpg",
 
@@ -331,14 +331,14 @@ const EVENTS = [
     // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
     type: "marketing", // [03] EVENT & PROMOTION
     mode: "auto",
-    startDate: "2026-10-25",
+    startDate: "2026-11-04",
     startTime: "10:00",
-    endDate: "2026-11-30",
+    endDate: "2026-12-31",
     endTime: "22:00",
 
     label: "EVENT",
     title: "신규 오픈 기념 특별 이벤트",
-    dateText: "2026. 10. 25 — 11. 30",
+    dateText: "2026. 11. 04 — 12. 31",
     thumb: "images/event04-thumb.jpg",
     detailImage: "images/event04.jpg",
 
@@ -349,7 +349,7 @@ const EVENTS = [
     ],
 
     info: [
-      { label: "기간", value: "2026. 10. 25 — 11. 30" },
+      { label: "기간", value: "2026. 11. 04 — 12. 31" },
       { label: "장소", value: "THE GREAT SQUARE1 B1" },
       { label: "참여방법", value: "" }
     ]
