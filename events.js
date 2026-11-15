@@ -4,7 +4,7 @@ THE GREAT SQUARE1 B1 — 관리 파일 빠른 목차
 아래 순서대로 찾아 수정하면 홈페이지의 위→아래 순서와 같습니다.
 
 [01] MAIN
-     메인 히어로 이미지/영상, PC·모바일 영상 경로
+     메인 히어로 이미지/영상 목록, PC·모바일 문구 및 스타일
      검색: [01] MAIN — HERO
 
 [02] NOW AT B1
@@ -26,7 +26,7 @@ THE GREAT SQUARE1 B1 — 관리 파일 빠른 목차
      검색: [05] B1 BRAND
 
 [06] B1 FLOOR GUIDE
-     층별안내 문구/이미지는 index.html과 images/floor-map.jpg에서 수정
+     층별안내 문구는 index.html, PC·모바일 이미지는 images/floor-map-pc.jpg / floor-map-mobile.jpg에서 수정
      검색: id="floor" 또는 B1 FLOOR GUIDE
 
 [07] MORE SQUARE1
@@ -35,7 +35,7 @@ THE GREAT SQUARE1 B1 — 관리 파일 빠른 목차
 
 ※ 홈페이지에 보이는 섹션 순서와 관리용 코드 위치를 맞추기 위한 안내입니다.
 ※ [02] NOW AT B1, [06] B1 FLOOR GUIDE의 화면 문구·배치는 index.html에서 수정합니다.
-※ HTML에 있는 문구·배치는 index.html, 이미지·영상 파일은 images 폴더에서 관리합니다.
+※ 메인 문구와 메인 이미지·영상 순서는 events.js의 [01] MAIN에서 관리합니다. FLOOR MAP 이미지는 images/floor-map-pc.jpg / floor-map-mobile.jpg 파일을 교체하세요.
 =================================================================
 */
 
@@ -124,35 +124,84 @@ const QUICK_LINKS = {
 // duration: 이미지가 보여지는 시간(초)
 // start / end: 영상에서 보여줄 구간(초). end를 비우면 영상 끝까지.
 // =========================================================
-const HERO_DEFAULT_DURATION = 3;
+const HERO_DEFAULT_DURATION = 5; // 이미지 기본 노출 시간(초)
 
+// ⭐ 메인 비주얼 화면 크기·이미지 위치 관리 — PC와 모바일을 각각 수정하세요.
+// height: 메인 비주얼 영역의 세로 높이 (예: "1040px", "85vh")
+// positionX / positionY: 이미지·영상의 보이는 기준 위치 (0%~100%, 예: "50%", "40%")
+// fit: "cover"는 화면을 꽉 채우며 일부 잘릴 수 있고, "contain"은 전체 이미지가 보이며 여백이 생길 수 있습니다.
+const HERO_LAYOUT = {
+  pc: {
+    height: "1040px",
+    positionX: "50%",
+    positionY: "10%",
+    fit: "cover"
+  },
+  mobile: {
+    height: "760px",
+    positionX: "50%",
+    positionY: "50%",
+    fit: "cover"
+  }
+};
+
+// ⭐ 메인 문구 관리 — PC와 모바일을 각각 독립적으로 수정하세요.
+// title: 메인 영문 문구 / copyLines: 한 줄씩 입력하면 해당 위치에서 줄바꿈됩니다.
+// fontSize, fontWeight, color, lineHeight, letterSpacing: 글자 스타일
+// titleX/titleY, copyX/copyY: 각 문구 위치 / contentLeft, contentBottom: 문구 묶음 위치
+const HERO_TEXT = {
+  pc: {
+    title: "THE GREAT SQUARE1",
+    titleFontSize: "clamp(48px, 6vw, 90px)", titleFontWeight: "700", titleColor: "#ffffff",
+    titleLineHeight: "0.9", titleLetterSpacing: "-0.01em", titleX: "0px", titleY: "0px",
+    copyLines: ["스퀘어원, 지하층까지 확장!", "기대하세요!"],
+    copyFontSize: "clamp(22px, 2.8vw, 40px)", copyFontWeight: "400", copyColor: "#ffffff",
+    copyLineHeight: "1.45", copyLetterSpacing: "-0.04em", copyX: "0px", copyY: "0px",
+    contentLeft: "48px", contentBottom: "68px"
+  },
+  mobile: {
+    title: "THE GREAT SQUARE1",
+    titleFontSize: "clamp(32px, 8vw, 48px)", titleFontWeight: "700", titleColor: "#ffffff",
+    titleLineHeight: "0.95", titleLetterSpacing: "-0.02em", titleX: "0px", titleY: "0px",
+    copyLines: ["스퀘어원, 지하층까지 확장!", "기대하세요!"],
+    copyFontSize: "clamp(18px, 4.8vw, 25px)", copyFontWeight: "500", copyColor: "#ffffff",
+    copyLineHeight: "1.5", copyLetterSpacing: "-0.04em", copyX: "0px", copyY: "0px",
+    contentLeft: "24px", contentBottom: "68px"
+  }
+};
+
+// ⭐ 메인 비주얼 관리 — 위에서부터 순서대로 재생됩니다.
+// type: "image" 또는 "video"
+// image: pc/mobile에 각각 JPG 경로 지정
+// video: pc/mobile에 각각 MP4 경로 지정, pcFallback/mobileFallback은 영상 오류 시 대체 이미지
+// duration: 이미지 노출 시간(초) / start·end: 영상 재생 시작·종료 구간(초)
+// 원하는 순서로 항목을 이동하거나 복사해 추가하세요.
 const HERO_SLIDES = [
   {
     type: "video",
-    // ⭐ PC용 영상: 가로형 MP4를 넣을 경우 파일명만 수정하세요.
     pc: "images/main-video-pc.mp4",
-    // ⭐ 모바일용 영상: 첨부해주신 15초 세로 영상을 사용합니다.
     mobile: "images/main-video-mobile.mp4",
-    // ⭐ PC용 영상이 없을 때 대신 보여줄 PC 이미지
-    pcFallback: "images/main-pc.jpg",
+    pcFallback: "images/main-pc-01.jpg",
+    mobileFallback: "images/main-mobile-01.jpg",
     start: 0,
-    end: 15
+    end: "" // 빈 값이면 영상이 끝난 뒤 다음 슬라이드로 이동
   },
-  // ⭐ JPG 이미지 1
   {
     type: "image",
     pc: "images/main-pc-01.jpg",
     mobile: "images/main-mobile-01.jpg",
     duration: 5
   },
-
-  // ⭐ JPG 이미지 2
   {
     type: "image",
     pc: "images/main-pc-02.jpg",
     mobile: "images/main-mobile-02.jpg",
     duration: 5
   }
+  // ⭐ JPG 추가 예시 — images 폴더에 파일을 넣고 아래 항목을 복사해 추가하세요.
+  // ,{ type: "image", pc: "images/main-pc-03.jpg", mobile: "images/main-mobile-03.jpg", duration: 5 }
+  // ⭐ 영상 추가 예시
+  // ,{ type: "video", pc: "images/main-video-pc-02.mp4", mobile: "images/main-video-mobile-02.mp4", pcFallback: "images/main-pc-01.jpg", mobileFallback: "images/main-mobile-01.jpg", start: 0, end: "" }
 ];
 
 // =========================================================
@@ -570,6 +619,9 @@ function renderHero() {
   const dots = document.querySelector("#hero-dots");
   const prevBtn = document.querySelector(".hero-prev");
   const nextBtn = document.querySelector(".hero-next");
+  const hero = document.querySelector("#hero");
+  const titleEl = document.querySelector("#hero-title");
+  const copyEl = document.querySelector("#hero-copy");
   if (!slider || !Array.isArray(HERO_SLIDES) || !HERO_SLIDES.length) return;
 
   slider.innerHTML = "";
@@ -581,17 +633,71 @@ function renderHero() {
   let touchStartX = 0;
   let pointerStartX = 0;
   let pointerDragging = false;
+  let resizeTimer = null;
+
+  function isMobile() { return window.matchMedia("(max-width: 899px)").matches; }
+
+  // PC·모바일 메인 비주얼 높이와 이미지/영상 위치를 설정값에 맞춰 적용합니다.
+  function applyHeroLayout() {
+    const cfg = isMobile() ? HERO_LAYOUT.mobile : HERO_LAYOUT.pc;
+    if (!cfg) return;
+    if (hero && cfg.height) hero.style.height = cfg.height;
+    slider.querySelectorAll(".hero-media").forEach(media => {
+      media.style.objectFit = cfg.fit || "cover";
+      media.style.objectPosition = `${cfg.positionX || "50%"} ${cfg.positionY || "50%"}`;
+    });
+  }
+
+  function applyHeroText() {
+    const cfg = isMobile() ? HERO_TEXT.mobile : HERO_TEXT.pc;
+    if (!cfg) return;
+    if (titleEl) {
+      titleEl.textContent = cfg.title || "";
+      titleEl.style.fontSize = cfg.titleFontSize || "";
+      titleEl.style.fontWeight = cfg.titleFontWeight || "";
+      titleEl.style.color = cfg.titleColor || "";
+      titleEl.style.lineHeight = cfg.titleLineHeight || "";
+      titleEl.style.letterSpacing = cfg.titleLetterSpacing || "";
+      titleEl.style.transform = `translate(${cfg.titleX || "0px"}, ${cfg.titleY || "0px"})`;
+    }
+    if (copyEl) {
+      copyEl.replaceChildren();
+      (cfg.copyLines || []).forEach((line, index) => {
+        if (index) copyEl.appendChild(document.createElement("br"));
+        copyEl.appendChild(document.createTextNode(line));
+      });
+      copyEl.style.fontSize = cfg.copyFontSize || "";
+      copyEl.style.fontWeight = cfg.copyFontWeight || "";
+      copyEl.style.color = cfg.copyColor || "";
+      copyEl.style.lineHeight = cfg.copyLineHeight || "";
+      copyEl.style.letterSpacing = cfg.copyLetterSpacing || "";
+      copyEl.style.transform = `translate(${cfg.copyX || "0px"}, ${cfg.copyY || "0px"})`;
+    }
+    const content = hero ? hero.querySelector(".hero-content") : null;
+    if (content) {
+      content.style.paddingLeft = cfg.contentLeft || "";
+      content.style.paddingBottom = cfg.contentBottom || "";
+    }
+  }
+  applyHeroText();
 
   HERO_SLIDES.forEach((slide, index) => {
     const item = document.createElement("div");
     item.className = "hero-slide";
     item.dataset.index = String(index);
+    item.dataset.type = slide.type || "image";
 
     if (slide.type === "video") {
-      const fallback = document.createElement("img");
-      fallback.className = "hero-media hero-video-fallback";
-      fallback.src = slide.pcFallback || slide.pc || slide.mobile || "";
-      fallback.alt = "";
+      const fallback = document.createElement("picture");
+      fallback.className = "hero-video-fallback-wrap";
+      const source = document.createElement("source");
+      source.media = "(max-width: 899px)";
+      source.srcset = slide.mobileFallback || slide.mobile || slide.pcFallback || slide.pc || "";
+      const fallbackImg = document.createElement("img");
+      fallbackImg.className = "hero-media hero-video-fallback";
+      fallbackImg.src = slide.pcFallback || slide.pc || slide.mobileFallback || slide.mobile || "";
+      fallbackImg.alt = "";
+      fallback.append(source, fallbackImg);
 
       const video = document.createElement("video");
       video.className = "hero-media hero-video";
@@ -601,12 +707,9 @@ function renderHero() {
       video.setAttribute("muted", "");
       video.setAttribute("playsinline", "");
       video.setAttribute("webkit-playsinline", "");
-
-      item.appendChild(fallback);
-      item.appendChild(video);
+      item.append(fallback, video);
       item.dataset.pc = slide.pc || "";
       item.dataset.mobile = slide.mobile || "";
-      item.dataset.fallback = slide.pcFallback || slide.pc || slide.mobile || "";
       item.dataset.start = String(Number(slide.start ?? 0));
       item.dataset.end = slide.end === "" || slide.end == null ? "" : String(Number(slide.end));
     } else {
@@ -618,11 +721,10 @@ function renderHero() {
       img.className = "hero-media";
       img.src = slide.pc || slide.mobile || "";
       img.alt = "";
-      picture.appendChild(source);
-      picture.appendChild(img);
+      img.loading = index === 0 ? "eager" : "lazy";
+      picture.append(source, img);
       item.appendChild(picture);
     }
-
     slider.appendChild(item);
 
     if (dots) {
@@ -635,163 +737,113 @@ function renderHero() {
     }
   });
 
+  applyHeroLayout();
   const slides = Array.from(slider.querySelectorAll(".hero-slide"));
   const dotEls = dots ? Array.from(dots.querySelectorAll(".hero-dot")) : [];
 
-  function isMobile() {
-    return window.matchMedia("(max-width: 899px)").matches;
-  }
-
   function stopTimer() {
-    if (timer !== null) {
-      clearTimeout(timer);
-      timer = null;
-    }
+    if (timer !== null) { clearTimeout(timer); timer = null; }
   }
-
   function stopVideo() {
     if (!activeVideo) return;
     activeVideo.pause();
-    activeVideo.removeEventListener("timeupdate", handleVideoTime);
+    activeVideo.onended = null;
+    activeVideo.onerror = null;
+    activeVideo.ontimeupdate = null;
     activeVideo = null;
   }
-
-  function applyVideoSource(item) {
-    const video = item.querySelector("video");
-    const fallback = item.querySelector(".hero-video-fallback");
-    if (!video) return false;
-
-    const src = isMobile() ? item.dataset.mobile : item.dataset.pc;
-    const isVideo = /\.(mp4|webm|ogg)(\?|$)/i.test(src || "");
-
-    if (!isVideo || !src) {
-      video.pause();
-      video.removeAttribute("src");
-      video.load();
-      video.style.display = "none";
-      if (fallback) {
-        fallback.src = item.dataset.fallback || "";
-        fallback.style.display = "block";
-      }
-      return false;
-    }
-
-    if (fallback) fallback.style.display = "none";
-    video.style.display = "block";
-
-    if (video.dataset.source !== src) {
-      video.pause();
-      video.src = src;
-      video.dataset.source = src;
-      video.load();
-    }
-    return true;
-  }
-
-  function handleVideoTime() {
-    if (!activeVideo) return;
-    const item = slides[current];
-    const end = item.dataset.end === "" ? null : Number(item.dataset.end);
-    if (end !== null && activeVideo.currentTime >= end - 0.05) {
-      goTo(current + 1, false);
-    }
-  }
-
   function updateUI() {
-    slides.forEach((slide, index) => {
-      slide.classList.toggle("is-active", index === current);
-    });
-    dotEls.forEach((dot, index) => {
-      dot.classList.toggle("is-active", index === current);
-    });
+    slides.forEach((slide, index) => slide.classList.toggle("is-active", index === current));
+    dotEls.forEach((dot, index) => dot.classList.toggle("is-active", index === current));
+    if (prevBtn) prevBtn.style.display = slides.length > 1 ? "" : "none";
+    if (nextBtn) nextBtn.style.display = slides.length > 1 ? "" : "none";
+    if (dots) dots.style.display = slides.length > 1 ? "" : "none";
   }
-
-  function scheduleCurrent() {
-    stopTimer();
-    stopVideo();
-    updateUI();
-
-    const item = slides[current];
-    const slide = HERO_SLIDES[current] || {};
-
-    if (slide.type === "video") {
-      const hasVideo = applyVideoSource(item);
-      if (hasVideo) {
-        const video = item.querySelector("video");
-        const start = Number(slide.start ?? 0);
-        const end = slide.end === "" || slide.end == null ? null : Number(slide.end);
-        activeVideo = video;
-
-        const startPlayback = () => {
-          if (slides[current] !== item || !activeVideo) return;
-          try { video.currentTime = Math.max(0, start); } catch (e) {}
-          video.removeEventListener("timeupdate", handleVideoTime);
-          video.addEventListener("timeupdate", handleVideoTime);
-          video.play().catch(() => {
-            // 자동재생이 막혀도 사용자가 다음 슬라이드로 이동할 수 있도록 합니다.
-            if (end !== null && end > start) {
-              timer = setTimeout(() => goTo(current + 1, false), (end - start) * 1000);
-            }
-          });
-        };
-
-        if (video.readyState >= 1) startPlayback();
-        else video.addEventListener("loadedmetadata", startPlayback, { once: true });
-        return;
-      }
-    }
-
-    // 이미지 슬라이드 또는 PC에서 영상이 없는 경우: 항상 자동 전환
-    const duration = Math.max(0.5, Number(slide.duration || HERO_DEFAULT_DURATION)) * 1000;
-    timer = setTimeout(() => goTo(current + 1, false), duration);
-  }
-
-  function goTo(index, userAction) {
+  function goTo(index) {
     if (!slides.length) return;
     current = (index + slides.length) % slides.length;
     scheduleCurrent();
   }
+  function scheduleCurrent() {
+    stopTimer();
+    stopVideo();
+    updateUI();
+    const item = slides[current];
+    const slide = HERO_SLIDES[current] || {};
 
-  // 버튼은 DOMContentLoaded 이후에 존재하므로 여기서 직접 연결합니다.
-  if (prevBtn) prevBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    goTo(current - 1, true);
-  });
-  if (nextBtn) nextBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    goTo(current + 1, true);
-  });
+    if (slide.type === "video") {
+      const video = item.querySelector("video");
+      const fallback = item.querySelector(".hero-video-fallback-wrap");
+      const src = isMobile() ? (item.dataset.mobile || item.dataset.pc) : (item.dataset.pc || item.dataset.mobile);
+      if (src && video) {
+        if (video.dataset.source !== src) {
+          video.pause();
+          video.src = src;
+          video.dataset.source = src;
+          video.load();
+        }
+        video.style.display = "block";
+        if (fallback) fallback.style.display = "none";
+        activeVideo = video;
+        const start = Number(slide.start ?? 0);
+        const end = slide.end === "" || slide.end == null ? null : Number(slide.end);
+        const advance = () => { if (slides[current] === item) goTo(current + 1); };
+        video.onended = advance;
+        video.onerror = () => {
+          if (fallback) fallback.style.display = "block";
+          video.style.display = "none";
+          activeVideo = null;
+          timer = setTimeout(advance, Math.max(1, Number(slide.duration || HERO_DEFAULT_DURATION)) * 1000);
+        };
+        video.ontimeupdate = () => {
+          if (end !== null && video.currentTime >= end - 0.05) {
+            video.ontimeupdate = null;
+            video.pause();
+            advance();
+          }
+        };
+        const playWhenReady = () => {
+          if (slides[current] !== item || activeVideo !== video) return;
+          try { video.currentTime = Math.max(0, start); } catch (e) {}
+          video.play().catch(() => {
+            // 자동재생이 차단된 경우에도 슬라이더가 멈추지 않도록 영상 길이 또는 기본 시간 후 이동
+            const wait = end !== null && end > start ? (end - start) : (video.duration || Number(slide.duration) || HERO_DEFAULT_DURATION);
+            timer = setTimeout(advance, Math.max(1, wait) * 1000);
+          });
+        };
+        if (video.readyState >= 1) playWhenReady();
+        else video.addEventListener("loadedmetadata", playWhenReady, { once: true });
+        return;
+      }
+      if (fallback) fallback.style.display = "block";
+      if (video) video.style.display = "none";
+    }
+    const duration = Math.max(0.5, Number(slide.duration || HERO_DEFAULT_DURATION)) * 1000;
+    timer = setTimeout(() => goTo(current + 1), duration);
+  }
 
-  slider.addEventListener("touchstart", (e) => {
-    if (e.touches[0]) touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  slider.addEventListener("touchend", (e) => {
+  if (prevBtn) prevBtn.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); goTo(current - 1); });
+  if (nextBtn) nextBtn.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); goTo(current + 1); });
+  slider.addEventListener("touchstart", e => { if (e.touches[0]) touchStartX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener("touchend", e => {
     if (!e.changedTouches[0]) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 45) goTo(current + (dx < 0 ? 1 : -1), true);
+    if (Math.abs(dx) > 45) goTo(current + (dx < 0 ? 1 : -1));
   }, { passive: true });
-
-  slider.addEventListener("mousedown", (e) => {
+  slider.addEventListener("mousedown", e => {
     if (!window.matchMedia("(min-width: 768px)").matches) return;
-    pointerDragging = true;
-    pointerStartX = e.clientX;
-    slider.classList.add("is-dragging");
+    pointerDragging = true; pointerStartX = e.clientX; slider.classList.add("is-dragging");
   });
-  window.addEventListener("mouseup", (e) => {
+  window.addEventListener("mouseup", e => {
     if (!pointerDragging) return;
     const dx = e.clientX - pointerStartX;
-    pointerDragging = false;
-    slider.classList.remove("is-dragging");
-    if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1), true);
+    pointerDragging = false; slider.classList.remove("is-dragging");
+    if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
   });
-
   window.addEventListener("resize", () => {
-    const active = slides[current];
-    if (active && active.querySelector("video")) scheduleCurrent();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { applyHeroLayout(); applyHeroText(); scheduleCurrent(); }, 120);
   });
-
   scheduleCurrent();
 }
 

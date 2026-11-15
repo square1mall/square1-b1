@@ -1,0 +1,49 @@
+THE GREAT SQUARE1 B1 — V40 업데이트 안내
+
+[01] 메인 비주얼 화면 크기·이미지 위치 관리 (신규)
+events.js 상단의 HERO_LAYOUT에서 PC와 모바일을 각각 조절합니다.
+
+const HERO_LAYOUT = {
+  pc: {
+    height: "1040px",     // PC 메인 영역 높이
+    positionX: "50%",     // PC 이미지 가로 위치
+    positionY: "50%",     // PC 이미지 세로 위치
+    fit: "cover"           // cover 또는 contain
+  },
+  mobile: {
+    height: "760px",      // 모바일 메인 영역 높이
+    positionX: "50%",     // 모바일 이미지 가로 위치
+    positionY: "50%",     // 모바일 이미지 세로 위치
+    fit: "cover"
+  }
+};
+
+- height: "1040px"처럼 px로 지정하거나 "85vh"처럼 화면 높이 비율로 지정할 수 있습니다.
+- positionX: 0%는 왼쪽, 50%는 중앙, 100%는 오른쪽 기준입니다.
+- positionY: 0%는 위쪽, 50%는 중앙, 100%는 아래쪽 기준입니다.
+- fit: cover는 화면을 꽉 채우지만 이미지 일부가 잘릴 수 있습니다.
+- fit: contain은 이미지 전체가 보이지만 화면에 여백이 생길 수 있습니다.
+- PC와 모바일 설정은 서로 독립적으로 적용됩니다.
+- 화면 크기를 변경하면 해당 설정이 자동으로 다시 적용됩니다.
+
+예시) 모바일에서 이미지의 위쪽을 더 보여주고 싶다면 mobile의 positionY를 "35%"로 변경합니다.
+예시) PC 메인 영역을 더 높이고 싶다면 pc의 height를 "1200px"로 변경합니다.
+
+[02] 메인 문구 PC·모바일 개별 관리
+HERO_TEXT의 pc / mobile 항목에서 문구, 크기, 굵기, 색상, 줄바꿈, 위치를 각각 수정합니다.
+
+[03] 메인 이미지·영상 슬라이더
+HERO_SLIDES 배열에서 이미지와 영상의 순서, 파일 경로, 이미지 노출 시간 및 영상 재생 구간을 관리합니다.
+각 슬라이드에는 PC·모바일 파일 경로를 별도로 지정할 수 있습니다.
+
+[04] FLOOR MAP
+PC: images/floor-map-pc.jpg
+모바일: images/floor-map-mobile.jpg
+화면 크기에 따라 자동 전환하며 원본 비율을 유지합니다.
+
+[05] 기존 기능
+이벤트 슬라이더, 브랜드 로고 슬라이더, 이벤트 목록·상세페이지, 상세 동영상 및 기타 기존 기능을 유지합니다.
+
+[GitHub Pages 업로드]
+압축을 풀고 index.html, style.css, events.js, 각 HTML 파일 및 images 폴더를 기존 저장소 최상위에 덮어써서 업로드하세요.
+폴더 자체를 한 단계 더 넣지 말고 index.html이 저장소 최상위에 있어야 합니다.
