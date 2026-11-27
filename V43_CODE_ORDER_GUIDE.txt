@@ -1,0 +1,11 @@
+코드 찾기 빠른 안내
+
+메인 배너 이미지/영상 또는 메인 문구를 바꾸려면 events.js 상단의 [01] MAIN을 찾으세요.
+NOW AT B1의 카테고리 이름이나 링크를 바꾸려면 index.html에서 NOW AT B1을 찾으세요.
+마케팅 이벤트를 바꾸려면 events.js의 [03] EVENT & PROMOTION 아래 항목을 수정하세요.
+입점 브랜드 이벤트를 바꾸려면 events.js의 [04] BRAND EVENT 아래 항목을 수정하세요.
+브랜드 로고를 바꾸려면 events.js의 [05] B1 BRAND에서 이미지 경로와 이름을 수정하세요.
+층별안내 문구는 index.html의 [06] B1 FLOOR GUIDE, 도면 이미지는 images/floor-map-pc.jpg와 images/floor-map-mobile.jpg를 교체하세요.
+하단 링크는 events.js의 [07] MORE SQUARE1에서 주소를 수정하세요.
+
+중요: events.js의 관리영역은 홈페이지 위→아래 순서로 배치되어 있습니다. 그 아래 FUNCTION 영역은 실제 화면 출력 기능이므로 일반적인 콘텐츠 수정에는 손대지 마세요.

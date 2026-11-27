@@ -1,119 +1,27 @@
 /*
 =================================================================
-THE GREAT SQUARE1 B1 — 관리 파일 빠른 목차
-아래 순서대로 찾아 수정하면 홈페이지의 위→아래 순서와 같습니다.
+THE GREAT SQUARE1 B1 — 관리 파일 목차
+※ 아래 관리영역은 실제 홈페이지 화면의 위→아래 순서로 정리했습니다.
+※ 이벤트 내용·이미지·기간 등은 아래 관리영역에서 수정하고,
+   그 아래의 기능 코드는 가급적 수정하지 마세요.
 
-[01] MAIN
-     메인 히어로 이미지/영상 목록, PC·모바일 문구 및 스타일
-     검색: [01] MAIN — HERO
+[01] MAIN — 메인 이미지/영상, PC·모바일 문구 및 위치
+[02] NOW AT B1 — 카테고리 문구와 링크 (index.html에서 수정)
+[03] EVENT & PROMOTION — 마케팅 이벤트 카드/기간/상세내용
+[04] BRAND EVENT — 브랜드 이벤트 카드/기간/상세내용
+[05] B1 BRAND — 브랜드 로고 이미지/이름
+[06] B1 FLOOR GUIDE — 안내 문구/도면 이미지 (index.html 및 images 폴더)
+[07] MORE SQUARE1 — 하단 홈페이지/인스타그램/카카오톡 링크
 
-[02] NOW AT B1
-     메인 화면의 NOW AT B1 카테고리 문구/링크는 index.html에서 수정
-     검색: id="now" 또는 NOW AT B1
-
-[03] EVENT & PROMOTION
-     마케팅 이벤트 카드/기간/상세내용은 EVENTS 배열에서
-     type: "marketing" 항목을 수정
-     검색: [03] EVENT & PROMOTION
-
-[04] BRAND EVENT
-     브랜드 이벤트 카드/기간/상세내용은 EVENTS 배열에서
-     type: "brand" 항목을 수정
-     검색: [04] BRAND EVENT
-
-[05] B1 BRAND
-     브랜드 로고 목록은 BRAND_LOGOS 배열에서 수정
-     검색: [05] B1 BRAND
-
-[06] B1 FLOOR GUIDE
-     층별안내 문구는 index.html, PC·모바일 이미지는 images/floor-map-pc.jpg / floor-map-mobile.jpg에서 수정
-     검색: id="floor" 또는 B1 FLOOR GUIDE
-
-[07] MORE SQUARE1
-     하단 바로가기 주소는 QUICK_LINKS에서 수정
-     검색: [07] MORE SQUARE1
-
-※ 홈페이지에 보이는 섹션 순서와 관리용 코드 위치를 맞추기 위한 안내입니다.
-※ [02] NOW AT B1, [06] B1 FLOOR GUIDE의 화면 문구·배치는 index.html에서 수정합니다.
-※ 메인 문구와 메인 이미지·영상 순서는 events.js의 [01] MAIN에서 관리합니다. FLOOR MAP 이미지는 images/floor-map-pc.jpg / floor-map-mobile.jpg 파일을 교체하세요.
+[관리 방법]
+- 이벤트는 [03]과 [04] 구역에 각각 모아두었습니다.
+- 이벤트 노출 순서는 각 항목의 order 숫자로 정합니다.
+- 상세페이지 내용은 각 이벤트의 content / info에서 수정합니다.
+- 이미지 파일을 교체할 때는 기존 파일명 또는 코드의 경로를 함께 확인하세요.
 =================================================================
 */
 
-/* =========================================================
-   THE GREAT SQUARE1 B1 — EVENT MANAGEMENT CENTER (V28)
 
-   ========================================================
-   ⭐⭐⭐  이벤트를 수정할 때는 이 파일의 [관리영역]만 수정하세요!  ⭐⭐⭐
-   ========================================================
-
-   📌 상세페이지 본문은 이제 어렵게 { type: ... }를 쓰지 않습니다.
-   아래처럼 한 줄씩 작성하면 됩니다.
-
-   [소제목]
-   "HEADING|이벤트 혜택"
-
-   [본문]
-   "TEXT|신규 오픈을 기념하여 특별한 혜택을 준비했습니다."
-
-   [이미지]
-   "IMAGE|images/event01-detail-02.jpg|이벤트 상세 이미지"
-
-   [구분선]
-   "DIVIDER"
-
-   [버튼]
-   "BUTTON|자세히 보기|https://example.com"
-
-   ⭐ 위 줄들을 원하는 순서로 배치하면 상세페이지도 같은 순서로 표시됩니다.
-
-   ========================================================
-   [관리영역에서 자주 수정하는 것]
-   ① order        : 이벤트 표시 순서 (1, 2, 3...)
-   ② mode         : auto / on / off
-   ③ 기간          : startDate / startTime / endDate / endTime
-   ④ 카드 정보      : label / title / dateText / thumb
-   ⑤ 상세 메인 이미지 : detailImage
-   ⑥ 상세 본문      : content 안의 한 줄들을 추가/삭제/순서변경
-   ⑦ EVENT INFORMATION : info 안에서 기간/장소/참여방법 순서 변경
-
-   [mode]
-   - "auto" : 설정한 날짜/시간에만 자동 노출
-   - "on"   : 날짜와 상관없이 항상 노출
-   - "off"  : 항상 숨김
-
-   [EVENT INFORMATION]
-   - 필요 없는 항목은 value를 ""로 비워두세요. 해당 줄이 자동으로 숨겨집니다.
-   - 기간은 "소진시까지"처럼 자유롭게 입력할 수 있습니다.
-   - 줄의 순서를 바꾸면 화면의 순서도 바뀝니다.
-
-   [새 이벤트 추가]
-   1. 아래 이벤트 하나를 복사합니다.
-   2. id를 event05, event06처럼 새로 지정합니다.
-   3. images 폴더에 썸네일/상세 이미지를 넣습니다.
-   4. 내용과 기간을 수정합니다.
-   5. 저장하면 메인·전체목록·상세페이지에 자동 반영됩니다.
-   ======================================================== */
-
-// =========================================================
-// [03] EVENT & PROMOTION / [04] BRAND EVENT — 이벤트 관리 영역
-//
-// ⭐ 구역 구분: type: "marketing" = 마케팅팀 이벤트 / type: "brand" = 입점 브랜드 이벤트
-// ⭐ 예: type: "brand"로 바꾸면 메인 화면의 BRAND EVENT 영역에 표시됩니다.
-// =========================================================
-
-// =========================================================
-// [07] MORE SQUARE1 — 하단 바로가기 링크 관리 영역
-//
-// ⭐ 메인 홈 화면 맨 아래 MORE SQUARE1 바로가기 링크입니다.
-// ⭐ 홈페이지 / 인스타그램 / 카카오톡 채널 주소만 바꾸면 됩니다.
-// =========================================================
-const QUICK_LINKS = {
-  homepage: "https://www.square1.co.kr",
-  instagram: "https://www.instagram.com/square1_incheon/",
-  kakao: "https://pf.kakao.com/_dExfVj"
-};
-// =========================================================
-// [END] ⭐ 바로가기 링크 관리 영역
 
 
 // =========================================================
@@ -204,10 +112,286 @@ const HERO_SLIDES = [
   // ,{ type: "video", pc: "images/main-video-pc-02.mp4", mobile: "images/main-video-mobile-02.mp4", pcFallback: "images/main-pc-01.jpg", mobileFallback: "images/main-mobile-01.jpg", start: 0, end: "" }
 ];
 
+
+// =========================================================
+// [02] NOW AT B1 — 카테고리 문구와 링크
+// 이 영역은 events.js가 아니라 index.html에서 수정합니다.
+// =========================================================
+
+// =========================================================
+// [03] EVENT & PROMOTION / [04] BRAND EVENT — 이벤트 관리
+// 아래 EVENTS 목록은 마케팅 이벤트를 먼저, 브랜드 이벤트를 다음에 배치했습니다.
+// 각 이벤트의 order 값은 각 구역 안에서 표시 순서를 결정합니다.
+// =========================================================
+const EVENTS = [
+  // -------------------------------------------------------
+  // [03] EVENT & PROMOTION — 마케팅 이벤트를 이 구역에 모아 관리
+  // type: "marketing" / order 숫자가 작을수록 해당 구역에서 먼저 표시
+  // -------------------------------------------------------
+  {
+      // ⭐ ① 이벤트 순서 — 숫자가 작을수록 먼저 표시
+      order: 1,
+      id: "event01",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "marketing", // [03] EVENT & PROMOTION
+      mode: "auto",
+      startDate: "2026-11-01",
+      startTime: "10:00",
+      endDate: "2026-12-25",
+      endTime: "22:00",
+  
+      // ⭐ ② 카드에 표시되는 정보
+      label: "EVENT",
+      title: "크리스마스 산타 퍼레이드",
+      dateText: "2026. 12. 25 — 12. 25",
+      thumb: "images/event01-thumb.jpg",
+  
+      // ⭐ ③ 상세페이지 맨 위 메인 이미지
+      detailImage: "images/event01.jpg",
+      // ⭐ ③-1 상세페이지 MP4 영상 (없으면 ""로 두세요)
+      // detailVideo: "images/event01-video.mp4",
+  
+      // ⭐ ④ 상세페이지 본문 — 아래 한 줄씩만 수정하세요!
+      // HEADING = 소제목 / TEXT = 본문 / IMAGE = 이미지 / DIVIDER = 구분선 / BUTTON = 버튼
+      // 작성한 순서 그대로 상세페이지에 표시됩니다.
+      // ⭐ 예시 내용이 입력되어 있습니다.
+      // ⭐ 실제 이벤트가 확정되면 아래 문구만 바꿔주세요.
+      content: [
+        "HEADING|THE GREAT SQUARE1 B1 GRAND OPEN",
+        "TEXT|새롭게 확장된 THE GREAT SQUARE1 B1에서 더욱 다양한 쇼핑과 라이프스타일을 만나보세요.",
+        "HEADING|신규 오픈 기념 특별 이벤트",
+        "TEXT|THE GREAT SQUARE1 B1 신규 오픈을 기념해 특별한 이벤트를 준비했습니다.",
+        "DIVIDER",
+        "HEADING|이벤트 안내",
+        "TEXT|기간 내 B1에서 진행되는 다양한 이벤트와 혜택을 확인해보세요."
+      ],
+  
+      // ⭐ ⑤ EVENT INFORMATION — 필요한 것만 남기고 순서도 자유롭게 변경
+      info: [
+        { label: "기간", value: "2026. 12. 25 — 12. 25" },
+        { label: "장소", value: "스퀘어원 몰순회" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+  {
+      order: 2,
+      id: "event02",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "marketing", // [03] EVENT & PROMOTION
+      mode: "auto",
+      startDate: "2026-11-27",
+      startTime: "10:00",
+      endDate: "2026-12-31",
+      endTime: "22:00",
+  
+      label: "SPECIAL EVENT",
+      title: "겨울속 한장면 스노우 트리",
+      dateText: "2026. 12. 01 — 12. 31",
+      thumb: "images/event02-thumb.jpg",
+      detailImage: "images/event02.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/event02-detail-01.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "소진시까지" },
+        { label: "장소", value: "야외 Gate1 크리스마스트리 앞" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+
+  {
+      order: 3,
+      id: "event03",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "marketing", // [03] EVENT & PROMOTION
+      mode: "auto",
+      startDate: "2026-11-04",
+      startTime: "10:00",
+      endDate: "2026-12-31",
+      endTime: "22:00",
+  
+      label: "SPECIAL EVENT",
+      title: "B1 GRAND OPENING EVENT",
+      dateText: "2026. 11. 04 — 12. 31",
+      thumb: "images/event03-thumb.jpg",
+      detailImage: "images/event03.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/event03-detail-02.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "소진시까지" },
+        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+
+  {
+      order: 4,
+      id: "event04",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "marketing", // [03] EVENT & PROMOTION
+      mode: "auto",
+      startDate: "2026-11-04",
+      startTime: "10:00",
+      endDate: "2026-12-31",
+      endTime: "22:00",
+  
+      label: "EVENT",
+      title: "신규 오픈 기념 특별 이벤트",
+      dateText: "2026. 11. 04 — 12. 31",
+      thumb: "images/event04-thumb.jpg",
+      detailImage: "images/event04.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/event04-detail-02.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "2026. 11. 04 — 12. 31" },
+        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+
+  // -------------------------------------------------------
+  // [04] BRAND EVENT — 입점 브랜드 이벤트를 이 구역에 모아 관리
+  // type: "brand" / order 숫자가 작을수록 해당 구역에서 먼저 표시
+  // -------------------------------------------------------
+  {
+      order: 1,
+      id: "brandevent01",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "brand", // [04] BRAND EVENT
+      mode: "auto",
+      startDate: "2026-11-25",
+      startTime: "10:00",
+      endDate: "2027-01-05",
+      endTime: "22:00",
+  
+      label: "OPEN EVENT",
+      title: "오픈 세일 최대 50%",
+      dateText: "2026. 11. 25 — 2027. 01. 05",
+      thumb: "images/brandevent01-thumb.jpg",
+      detailImage: "images/brandevent01.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/brandevent01-detail-01.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "2026. 11. 25 — 2027. 01. 05 " },
+        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "참여방법", value: "" }
+      ]
+    },  
+{
+      order: 2,
+      id: "brandevent02",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "brand", // [04] BRAND EVENT
+      mode: "auto",
+      startDate: "2026-11-05",
+      startTime: "10:00",
+      endDate: "2026-12-30",
+      endTime: "22:00",
+  
+      label: "OPEN EVENT",
+      title: "새롭게 만나는 B1 신규 브랜드",
+      dateText: "2026. 11. 05 — 12. 30",
+      thumb: "images/brandevent02-thumb.jpg",
+      detailImage: "images/brandevent02.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/event02-detail-02.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "2026. 11. 05 — 12. 30 " },
+        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+  {
+      order: 3,
+      id: "brandevent03",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "brand", // [04] BRAND EVENT
+      mode: "auto",
+      startDate: "2026-11-27",
+      startTime: "10:00",
+      endDate: "2027-01-30",
+      endTime: "22:00",
+  
+      label: "OPEN EVENT",
+      title: "GRAND OPEN EVENT",
+      dateText: "2026. 11. 27 — 2027. 01. 01",
+      thumb: "images/brandevent03-thumb.jpg",
+      detailImage: "images/brandevent03.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/brandevent03-detail-01.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "2026. 11. 27 — 2027. 01. 01 " },
+        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+ {
+      order: 4,
+      id: "brandevent04",
+      // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
+      type: "brand", // [04] BRAND EVENT
+      mode: "auto",
+      startDate: "2026-11-27",
+      startTime: "10:00",
+      endDate: "2027-01-30",
+      endTime: "22:00",
+  
+      label: "GRAND OPEN EVENT",
+      title: "GRRAND OPEN EVENT",
+      dateText: "2026. 11. 27 — 2027. 01. 01",
+      thumb: "images/brandevent04-thumb.jpg",
+      detailImage: "images/brandevent04.jpg",
+  
+      content: [
+        // "HEADING|이벤트 혜택",
+        // "TEXT|이벤트 상세 내용을 입력하세요.",
+        // "IMAGE|images/brandevent04-detail-01.jpg|이벤트 상세 이미지"
+      ],
+  
+      info: [
+        { label: "기간", value: "2026. 11. 27 — 2027. 01. 01 " },
+        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "참여방법", value: "" }
+      ]
+    },
+
+
+];
+
 // =========================================================
 // [05] B1 BRAND — 브랜드 로고 관리 영역
 // 6개를 넘으면 PC에서는 6개씩 보이고, 1개씩 이동합니다.
 // 모바일에서는 손가락으로 좌우 스와이프할 수 있습니다.
+// 이미지 파일은 images 폴더에 넣고 경로와 이름을 수정하세요.
 // =========================================================
 const BRAND_LOGOS = [
   { image: "images/brand01.jpg", name: "B1 BRAND 01" },
@@ -218,151 +402,91 @@ const BRAND_LOGOS = [
   { image: "images/brand06.jpg", name: "B1 BRAND 06" }
 ];
 
-const EVENTS = [
-  {
-    // ⭐ ① 이벤트 순서 — 숫자가 작을수록 먼저 표시
-    order: 1,
-    id: "event01",
-    // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "marketing", // [03] EVENT & PROMOTION
-    mode: "auto",
-    startDate: "2026-11-01",
-    startTime: "10:00",
-    endDate: "2026-12-30",
-    endTime: "22:00",
-
-    // ⭐ ② 카드에 표시되는 정보
-    label: "EVENT",
-    title: "신규 오픈 기념 특별 이벤트",
-    dateText: "2026. 11. 01 — 12. 30",
-    thumb: "images/event01-thumb.jpg",
-
-    // ⭐ ③ 상세페이지 맨 위 메인 이미지
-    detailImage: "images/event01.jpg",
-    // ⭐ ③-1 상세페이지 MP4 영상 (없으면 ""로 두세요)
-    // detailVideo: "images/event01-video.mp4",
-
-    // ⭐ ④ 상세페이지 본문 — 아래 한 줄씩만 수정하세요!
-    // HEADING = 소제목 / TEXT = 본문 / IMAGE = 이미지 / DIVIDER = 구분선 / BUTTON = 버튼
-    // 작성한 순서 그대로 상세페이지에 표시됩니다.
-    // ⭐ 예시 내용이 입력되어 있습니다.
-    // ⭐ 실제 이벤트가 확정되면 아래 문구만 바꿔주세요.
-    content: [
-      "HEADING|THE GREAT SQUARE1 B1 GRAND OPEN",
-      "TEXT|새롭게 확장된 THE GREAT SQUARE1 B1에서 더욱 다양한 쇼핑과 라이프스타일을 만나보세요.",
-      "HEADING|신규 오픈 기념 특별 이벤트",
-      "TEXT|THE GREAT SQUARE1 B1 신규 오픈을 기념해 특별한 이벤트를 준비했습니다.",
-      "DIVIDER",
-      "HEADING|이벤트 안내",
-      "TEXT|기간 내 B1에서 진행되는 다양한 이벤트와 혜택을 확인해보세요."
-    ],
-
-    // ⭐ ⑤ EVENT INFORMATION — 필요한 것만 남기고 순서도 자유롭게 변경
-    info: [
-      { label: "기간", value: "2026. 11. 01 — 12. 30" },
-      { label: "장소", value: "THE GREAT SQUARE1 B1" },
-      { label: "참여방법", value: "" }
-    ]
-  },
-
-  {
-    order: 2,
-    id: "event02",
-    // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "brand", // [04] BRAND EVENT
-    mode: "auto",
-    startDate: "2026-11-05",
-    startTime: "10:00",
-    endDate: "2026-12-30",
-    endTime: "22:00",
-
-    label: "OPEN EVENT",
-    title: "새롭게 만나는 B1 신규 브랜드",
-    dateText: "2026. 11. 05 — 12. 30",
-    thumb: "images/event02-thumb.jpg",
-    detailImage: "images/event02.jpg",
-
-    content: [
-      // "HEADING|이벤트 혜택",
-      // "TEXT|이벤트 상세 내용을 입력하세요.",
-      // "IMAGE|images/event02-detail-02.jpg|이벤트 상세 이미지"
-    ],
-
-    info: [
-      { label: "기간", value: "2026. 11. 05 — 12. 30 " },
-      { label: "장소", value: "THE GREAT SQUARE1 B1" },
-      { label: "참여방법", value: "" }
-    ]
-  },
-
-  {
-    order: 3,
-    id: "event03",
-    // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "marketing", // [03] EVENT & PROMOTION
-    mode: "auto",
-    startDate: "2026-11-04",
-    startTime: "10:00",
-    endDate: "2026-12-31",
-    endTime: "22:00",
-
-    label: "SPECIAL EVENT",
-    title: "B1 GRAND OPENING EVENT",
-    dateText: "2026. 11. 04 — 12. 31",
-    thumb: "images/event03-thumb.jpg",
-    detailImage: "images/event03.jpg",
-
-    content: [
-      // "HEADING|이벤트 혜택",
-      // "TEXT|이벤트 상세 내용을 입력하세요.",
-      // "IMAGE|images/event03-detail-02.jpg|이벤트 상세 이미지"
-    ],
-
-    info: [
-      { label: "기간", value: "소진시까지" },
-      { label: "장소", value: "THE GREAT SQUARE1 B1" },
-      { label: "참여방법", value: "" }
-    ]
-  },
-
-  {
-    order: 4,
-    id: "event04",
-    // ⭐ ①-1 구역: marketing = 마케팅 / brand = 브랜드 이벤트
-    type: "marketing", // [03] EVENT & PROMOTION
-    mode: "auto",
-    startDate: "2026-11-04",
-    startTime: "10:00",
-    endDate: "2026-12-31",
-    endTime: "22:00",
-
-    label: "EVENT",
-    title: "신규 오픈 기념 특별 이벤트",
-    dateText: "2026. 11. 04 — 12. 31",
-    thumb: "images/event04-thumb.jpg",
-    detailImage: "images/event04.jpg",
-
-    content: [
-      // "HEADING|이벤트 혜택",
-      // "TEXT|이벤트 상세 내용을 입력하세요.",
-      // "IMAGE|images/event04-detail-02.jpg|이벤트 상세 이미지"
-    ],
-
-    info: [
-      { label: "기간", value: "2026. 11. 04 — 12. 31" },
-      { label: "장소", value: "THE GREAT SQUARE1 B1" },
-      { label: "참여방법", value: "" }
-    ]
-  }
-];
-
 // =========================================================
 // [END] ⭐ 이벤트 관리 영역
+
+// [06] B1 FLOOR GUIDE
+// 층별안내 문구와 이미지 배치는 index.html에서 수정합니다.
+// 이미지 파일: images/floor-map-pc.jpg / images/floor-map-mobile.jpg
+
+
+// =========================================================
+// [07] MORE SQUARE1 — 하단 바로가기 링크 관리 영역
+// 홈페이지 / 인스타그램 / 카카오톡 채널 주소를 수정하세요.
+// =========================================================
+const QUICK_LINKS = {
+  homepage: "https://www.square1.co.kr",
+  instagram: "https://www.instagram.com/square1_incheon/",
+  kakao: "https://pf.kakao.com/_dExfVj"
+};
+// =========================================================
+// [END] ⭐ 바로가기 링크 관리 영역
+
+/* =========================================================
+   THE GREAT SQUARE1 B1 — EVENT MANAGEMENT CENTER (V28)
+
+   ========================================================
+   ⭐⭐⭐  이벤트를 수정할 때는 이 파일의 [관리영역]만 수정하세요!  ⭐⭐⭐
+   ========================================================
+
+   📌 상세페이지 본문은 이제 어렵게 { type: ... }를 쓰지 않습니다.
+   아래처럼 한 줄씩 작성하면 됩니다.
+
+   [소제목]
+   "HEADING|이벤트 혜택"
+
+   [본문]
+   "TEXT|신규 오픈을 기념하여 특별한 혜택을 준비했습니다."
+
+   [이미지]
+   "IMAGE|images/event01-detail-02.jpg|이벤트 상세 이미지"
+
+   [구분선]
+   "DIVIDER"
+
+   [버튼]
+   "BUTTON|자세히 보기|https://example.com"
+
+   ⭐ 위 줄들을 원하는 순서로 배치하면 상세페이지도 같은 순서로 표시됩니다.
+
+   ========================================================
+   [관리영역에서 자주 수정하는 것]
+   ① order        : 이벤트 표시 순서 (1, 2, 3...)
+   ② mode         : auto / on / off
+   ③ 기간          : startDate / startTime / endDate / endTime
+   ④ 카드 정보      : label / title / dateText / thumb
+   ⑤ 상세 메인 이미지 : detailImage
+   ⑥ 상세 본문      : content 안의 한 줄들을 추가/삭제/순서변경
+   ⑦ EVENT INFORMATION : info 안에서 기간/장소/참여방법 순서 변경
+
+   [mode]
+   - "auto" : 설정한 날짜/시간에만 자동 노출
+   - "on"   : 날짜와 상관없이 항상 노출
+   - "off"  : 항상 숨김
+
+   [EVENT INFORMATION]
+   - 필요 없는 항목은 value를 ""로 비워두세요. 해당 줄이 자동으로 숨겨집니다.
+   - 기간은 "소진시까지"처럼 자유롭게 입력할 수 있습니다.
+   - 줄의 순서를 바꾸면 화면의 순서도 바뀝니다.
+
+   [새 이벤트 추가]
+   1. 아래 이벤트 하나를 복사합니다.
+   2. id를 event05, event06처럼 새로 지정합니다.
+   3. images 폴더에 썸네일/상세 이미지를 넣습니다.
+   4. 내용과 기간을 수정합니다.
+   5. 저장하면 메인·전체목록·상세페이지에 자동 반영됩니다.
+   ======================================================== */
+
+
 // =========================================================
 
 
+// =========================================================
+// 아래부터는 화면 출력·슬라이드 동작을 담당하는 기능 코드입니다.
+// 일반적인 이벤트/이미지/문구 수정 시에는 위 관리영역만 수정하세요.
+// =========================================================
 
-
+// [FUNCTION 01] 공통 링크 / 이벤트 데이터 처리
 function renderQuickLinks() {
   document.querySelectorAll("[data-quick-link]").forEach(link => {
     const key = link.dataset.quickLink;
@@ -645,6 +769,7 @@ function setupEventCarousel(viewport, track, originalCount, shell) {
   });
 }
 
+// [FUNCTION 04] B1 BRAND — 브랜드 로고 슬라이드
 function renderBrandCarousel() {
   const scroller = document.querySelector("#brand-scroller");
   const arrows = document.querySelector("#brand-arrows");
@@ -677,6 +802,7 @@ function renderBrandCarousel() {
   next.onclick = () => moveOne(1);
 }
 
+// [FUNCTION 03-04] EVENT & PROMOTION / BRAND EVENT — 이벤트 출력
 function renderEvents() {
   const visibleEvents = sortedEvents().filter(eventIsVisible);
 
@@ -702,6 +828,7 @@ function renderEvents() {
 }
 
 
+// [FUNCTION 01] MAIN — 메인 비주얼 슬라이드
 function renderHero() {
   const slider = document.querySelector("#hero-slider");
   const dots = document.querySelector("#hero-dots");
@@ -1132,10 +1259,11 @@ function renderHero() {
   }
 
   document.addEventListener("DOMContentLoaded", function(){
-    renderQuickLinks();
-    renderHero();
-    renderBrandCarousel();
-    renderEvents();
-    renderDetail();
+    // 홈페이지 위→아래 순서대로 화면을 초기화합니다.
+    renderHero();          // [01] MAIN
+    renderEvents();        // [03] EVENT & PROMOTION / [04] BRAND EVENT
+    renderBrandCarousel(); // [05] B1 BRAND
+    renderQuickLinks();    // [07] MORE SQUARE1
+    renderDetail();        // 이벤트 상세 페이지에서만 표시
   });
 })();
