@@ -483,7 +483,6 @@ function renderEventCarousel(listEl, events, key) {
 }
 
 function setupEventCarousel(viewport, track, originalCount, shell) {
-  // 카드가 1개뿐이면 자동 이동할 다음 카드가 없으므로 정지 상태로 둡니다.
   if (originalCount <= 1) return;
 
   let raf = null;
@@ -493,143 +492,157 @@ function setupEventCarousel(viewport, track, originalCount, shell) {
   let startX = 0;
   let startScroll = 0;
   let lastTime = performance.now();
+  let loopWidth = 0;
 
   // PC 자동 이동 속도(px/초)
   const speed = 36;
 
   function isDesktop() {
-    return window.matchMedia("(min-width: 768px)").matches;
+    return window.matchMedia('(min-width: 768px)').matches;
   }
 
-  function oneSetWidth() {
-    // offsetLeft는 레이아웃 구조에 따라 기준점이 달라질 수 있어,
-    // 실제 화면 좌표 차이로 첫 번째 묶음의 정확한 너비를 계산합니다.
+  function measureLoopWidth() {
+    // 첫 번째 원본 카드부터 첫 번째 복제 카드까지의 거리가
+    // 원본 카드 한 묶음의 정확한 이동 거리입니다.
     const firstCard = track.children[0];
-    const secondSetFirst = track.children[originalCount];
-    if (!firstCard || !secondSetFirst) return 0;
+    const firstClone = track.children[originalCount];
+    if (!firstCard || !firstClone) return 0;
+    return firstClone.getBoundingClientRect().left - firstCard.getBoundingClientRect().left;
+  }
 
-    return secondSetFirst.getBoundingClientRect().left
-      - firstCard.getBoundingClientRect().left;
+  function ensureCloneWidth() {
+    loopWidth = measureLoopWidth();
+    if (loopWidth <= 0) return;
+
+    // 한 묶음 + 화면 너비 이상의 복제 영역을 항상 확보합니다.
+    // 원본 카드만 복제하므로 복제본이 다시 복제되는 일은 없습니다.
+    const originals = Array.from(track.children).slice(0, originalCount);
+    const minimumTrackWidth = loopWidth * 2 + viewport.clientWidth;
+    let safety = 0;
+    while (track.scrollWidth < minimumTrackWidth && safety < 20) {
+      originals.forEach(source => {
+        const clone = source.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.dataset.carouselClone = 'true';
+        track.appendChild(clone);
+      });
+      safety++;
+    }
+    loopWidth = measureLoopWidth();
   }
 
   function normalizeScroll() {
-    const distance = oneSetWidth();
-    if (distance <= 0) return;
+    if (loopWidth <= 0) {
+      loopWidth = measureLoopWidth();
+      if (loopWidth <= 0) return;
+    }
 
-    // 복제된 두 번째 묶음 끝에 도달하면 첫 번째 묶음의 같은 위치로 되돌립니다.
-    // 나머지 위치를 유지하므로 마지막 카드에서 첫 카드로 끊김 없이 이어집니다.
-    if (viewport.scrollLeft >= distance || viewport.scrollLeft < 0) {
-      viewport.scrollLeft = ((viewport.scrollLeft % distance) + distance) % distance;
+    // 복제된 카드 묶음 구간에서 원본 묶음의 동일 위치로 순환시킵니다.
+    // 모듈로 정규화해 빠른 드래그/화살표 이동에도 끝에 걸리지 않습니다.
+    if (viewport.scrollLeft >= loopWidth || viewport.scrollLeft < 0) {
+      viewport.scrollLeft = ((viewport.scrollLeft % loopWidth) + loopWidth) % loopWidth;
     }
   }
 
   function resumeIfPossible() {
-    if (!pointerInside && !dragging && isDesktop() && document.visibilityState !== "hidden") {
+    if (!pointerInside && !dragging && isDesktop() && document.visibilityState !== 'hidden') {
       paused = false;
       lastTime = performance.now();
     }
   }
 
   function moveOne(direction) {
-    const first = track.querySelector(".event-card");
+    const first = track.children[0];
     if (!first) return;
-
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
     const amount = first.getBoundingClientRect().width + gap;
 
     paused = true;
-    viewport.scrollTo({
-      left: viewport.scrollLeft + direction * amount,
-      behavior: "smooth"
-    });
-
+    viewport.scrollTo({ left: viewport.scrollLeft + direction * amount, behavior: 'smooth' });
     window.setTimeout(() => {
       normalizeScroll();
       resumeIfPossible();
-    }, 500);
+    }, 550);
   }
 
-  const prev = shell.querySelector(".event-carousel-prev");
-  const next = shell.querySelector(".event-carousel-next");
-  if (prev) prev.addEventListener("click", () => moveOne(-1));
-  if (next) next.addEventListener("click", () => moveOne(1));
+  const prev = shell.querySelector('.event-carousel-prev');
+  const next = shell.querySelector('.event-carousel-next');
+  if (prev) prev.addEventListener('click', () => moveOne(-1));
+  if (next) next.addEventListener('click', () => moveOne(1));
 
   function tick(now) {
     const dt = Math.min(50, now - lastTime) / 1000;
     lastTime = now;
 
-    if (isDesktop() && !paused && !dragging && document.visibilityState !== "hidden") {
+    if (isDesktop() && !paused && !dragging && document.visibilityState !== 'hidden') {
       viewport.scrollLeft += speed * dt;
       normalizeScroll();
     }
-
     raf = requestAnimationFrame(tick);
   }
 
-  // 마우스가 이벤트 카드 영역에 있을 때만 일시정지하고, 벗어나면 자동 재개합니다.
-  viewport.addEventListener("pointerenter", event => {
-    if (event.pointerType === "mouse" && isDesktop()) {
+  // 기존 동작 유지: PC에서 마우스를 올리면 잠시 멈추고 벗어나면 재개합니다.
+  viewport.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'mouse' && isDesktop()) {
       pointerInside = true;
       paused = true;
     }
   });
-
-  viewport.addEventListener("pointerleave", event => {
-    if (event.pointerType === "mouse") {
+  viewport.addEventListener('pointerleave', event => {
+    if (event.pointerType === 'mouse') {
       pointerInside = false;
       resumeIfPossible();
     }
   });
 
-  viewport.addEventListener("mousedown", event => {
+  viewport.addEventListener('mousedown', event => {
     if (!isDesktop() || event.button !== 0) return;
     dragging = true;
     startX = event.clientX;
     startScroll = viewport.scrollLeft;
-    viewport.classList.add("is-dragging");
+    viewport.classList.add('is-dragging');
     paused = true;
   });
-
-  window.addEventListener("mousemove", event => {
+  window.addEventListener('mousemove', event => {
     if (!dragging) return;
     viewport.scrollLeft = startScroll - (event.clientX - startX);
     normalizeScroll();
   });
-
-  window.addEventListener("mouseup", () => {
+  window.addEventListener('mouseup', () => {
     if (!dragging) return;
     dragging = false;
-    viewport.classList.remove("is-dragging");
+    viewport.classList.remove('is-dragging');
     resumeIfPossible();
   });
 
-  // 브라우저 탭 전환/복귀 시 자동 이동 상태가 멈춰 남지 않도록 처리합니다.
-  window.addEventListener("blur", () => { paused = true; });
-  window.addEventListener("focus", resumeIfPossible);
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") {
-      paused = true;
-    } else {
+  window.addEventListener('blur', () => { paused = true; });
+  window.addEventListener('focus', resumeIfPossible);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') paused = true;
+    else {
       resumeIfPossible();
       lastTime = performance.now();
     }
   });
 
-  // 모바일은 기존처럼 자동 이동 없이 터치 스와이프만 사용합니다.
-  viewport.addEventListener("touchstart", () => {}, { passive: true });
+  // 모바일은 기존처럼 자동 이동 없이 터치 스와이프를 유지합니다.
+  viewport.addEventListener('touchstart', () => {}, { passive: true });
 
-  function startDesktopLoop() {
+  function startLoop() {
+    ensureCloneWidth();
     if (raf !== null) cancelAnimationFrame(raf);
     raf = null;
-
     if (isDesktop()) {
       lastTime = performance.now();
       raf = requestAnimationFrame(tick);
     }
   }
 
-  startDesktopLoop();
-  window.addEventListener("resize", startDesktopLoop);
+  startLoop();
+  window.addEventListener('resize', () => {
+    // 화면 크기 변경으로 카드 폭/간격이 달라져도 반복 기준을 다시 계산합니다.
+    startLoop();
+  });
 }
 
 function renderBrandCarousel() {
