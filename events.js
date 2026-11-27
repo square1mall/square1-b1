@@ -215,7 +215,7 @@ const EVENTS = [
       endTime: "22:00",
   
       label: "SPECIAL EVENT",
-      title: "B1 GRAND OPENING EVENT",
+      title: "리스 케이크만들기 체험",
       dateText: "2026. 11. 04 — 12. 31",
       thumb: "images/event03-thumb.jpg",
       detailImage: "images/event03.jpg",
@@ -227,8 +227,8 @@ const EVENTS = [
       ],
   
       info: [
-        { label: "기간", value: "소진시까지" },
-        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "기간", value: "~선착순마감까지" },
+        { label: "장소", value: "1F 이벤트행사장(H&M매장 앞)" },
         { label: "참여방법", value: "" }
       ]
     },
@@ -244,8 +244,8 @@ const EVENTS = [
       endDate: "2026-12-31",
       endTime: "22:00",
   
-      label: "EVENT",
-      title: "신규 오픈 기념 특별 이벤트",
+      label: "PROMOTION",
+      title: "리뎀션 시즌2",
       dateText: "2026. 11. 04 — 12. 31",
       thumb: "images/event04-thumb.jpg",
       detailImage: "images/event04.jpg",
@@ -258,7 +258,7 @@ const EVENTS = [
   
       info: [
         { label: "기간", value: "2026. 11. 04 — 12. 31" },
-        { label: "장소", value: "THE GREAT SQUARE1 B1" },
+        { label: "장소", value: "1F 포인트데스크" },
         { label: "참여방법", value: "" }
       ]
     },
