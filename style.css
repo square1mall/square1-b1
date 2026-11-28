@@ -874,3 +874,154 @@ footer{padding:25px 20px 90px;color:#686d74;background:#08090b;font-size:8px;dis
 .floor-map picture,.floor-map picture source{display:block}
 .floor-map img{width:100%;height:auto;max-width:100%;object-fit:contain;object-position:center}
 @media(max-width:767px){.floor-map{max-width:100%;border-radius:14px}.floor-map img{height:auto}}
+
+
+/* =========================================================
+   V44 UPDATE — 메인 슬로우 줌 / 크로스페이드 / 정보 위젯
+   ========================================================= */
+.hero-slide{
+  transition:opacity 1.15s ease, visibility 1.15s ease;
+}
+.hero-slide[data-type="image"].is-active .hero-media{
+  animation:heroSlowZoom 6s ease-out both;
+  transform-origin:center center;
+}
+@keyframes heroSlowZoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.065);}
+}
+.hero-content.is-revealing{
+  animation:heroContentReveal 1.4s cubic-bezier(.2,.65,.25,1) both;
+}
+@keyframes heroContentReveal{
+  from{opacity:0;transform:translate3d(0,16px,0);}
+  to{opacity:1;transform:translate3d(0,0,0);}
+}
+
+/* 우측 상단 영업시간 / 동춘동 날씨 */
+.hero-info-widget{
+  position:absolute;
+  z-index:6;
+  top:30px;
+  right:48px;
+  width:252px;
+  padding:19px 20px 17px;
+  color:#fff;
+  background:rgba(12,15,19,.58);
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:13px;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
+}
+.widget-label-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.widget-eyebrow{font:600 11px/1.3 "Space Grotesk",sans-serif;letter-spacing:.09em;color:rgba(255,255,255,.78)}
+.business-status{font:600 8px/1 "Space Grotesk",sans-serif;letter-spacing:.06em;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:20px;padding:5px 7px}
+.business-status.is-open{background:rgba(91,164,125,.28);border-color:rgba(165,225,190,.65)}
+.business-status.is-closed{background:rgba(120,120,120,.22)}
+.business-hours-time{
+  display:flex;
+  align-items:baseline;
+  margin-top:10px;
+  font-family:"Space Grotesk",sans-serif;
+  white-space:nowrap;
+  letter-spacing:-.045em;
+}
+
+.business-hours-time .time-period{
+  font-size:12px;
+  font-weight:500;
+  margin-right:3px;
+}
+
+.business-hours-time .time-number{
+  font-size:22px;
+  font-weight:600;
+}
+
+.business-hours-time i{
+  font-size:16px;
+  font-style:normal;
+  font-weight:400;
+  opacity:.7;
+  padding:0 5px;
+}.widget-subcopy{display:block;margin-top:5px;font-size:11px;color:rgba(255,255,255,.7)}
+.widget-divider{height:1px;background:rgba(255,255,255,.2);margin:15px 0 13px}
+.weather-location{font-size:9px;color:rgba(255,255,255,.68);white-space:nowrap}
+.weather-main{display:flex;align-items:center;gap:8px;margin-top:8px;min-height:35px}
+.weather-symbol{font-size:25px;line-height:1}
+.weather-temperature{font:600 27px/1 "Space Grotesk",sans-serif;letter-spacing:-.05em}
+.weather-description{font-size:11px;color:rgba(255,255,255,.88)}
+.weather-range{display:flex;gap:12px;margin-top:7px;font-size:9px;color:rgba(255,255,255,.7)}
+.weather-range b{font-weight:600;color:#fff;margin-left:3px}
+
+/* 포인트센터 / 사은행사장 이전 안내 */
+.service-center-section{
+  display:grid;
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  align-items:center;
+  gap:clamp(32px,5vw,76px);
+  background:#171b20;
+}
+.service-center-copy{min-width:0}
+.service-change-label{
+  display:inline-block;
+  margin:0 0 13px;
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,.42);
+  border-radius:30px;
+  font:600 9px/1 "Space Grotesk",sans-serif;
+  letter-spacing:.09em;
+  color:#fff;
+}
+.service-center-copy h2{margin:0 0 14px!important;font-size:clamp(25px,2.5vw,34px)!important;line-height:1.25!important}
+.service-intro{margin:0 0 27px;color:#c0c5cb;font-size:13px;line-height:1.8;word-break:keep-all}
+.service-hours-group{display:grid;gap:18px}
+.service-info-block,.service-location-block,.service-uses-block{padding-bottom:17px;border-bottom:1px solid rgba(255,255,255,.13)}
+.service-info-label{display:block;margin-bottom:7px;font:600 9px/1.2 "Space Grotesk",sans-serif;letter-spacing:.1em;color:#aab2bc}
+.service-info-block h3,.service-location-block h3,.service-uses-block h3{margin:0 0 7px;color:#fff;font-size:13px;font-weight:600}
+.service-info-block p,.service-location-block p{margin:0;color:#d2d6da;font-size:12px;line-height:1.7}
+.service-info-block p strong,.service-location-block p strong{color:#fff;font-weight:700}
+.service-info-block small{display:block;margin-top:4px;color:#969da5;font-size:10px}
+.service-location-block,.service-uses-block{margin-top:17px}
+.service-uses-block ul{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 0;padding:0;list-style:none}
+.service-uses-block li{padding:8px 11px;border:1px solid rgba(255,255,255,.2);border-radius:30px;color:#e6e8ea;font-size:10px}
+.service-notice{margin:18px 0 0;color:#969da5;font-size:10px;line-height:1.6}
+.service-center-map{min-width:0;padding:16px;background:#f0f1ef;border-radius:15px;color:#222}
+.service-map-heading{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px;font:600 9px/1.2 "Space Grotesk",sans-serif;letter-spacing:.08em;color:#5b6269}
+.service-center-map picture{display:block;width:100%;overflow:hidden;border-radius:8px;background:#fff}
+.service-center-map img{display:block;width:100%;height:auto;object-fit:contain}
+.service-map-caption{margin:10px 2px 0;color:#5e656b;font-size:10px}
+
+/* 모바일 정보 위젯 및 서비스 안내 */
+@media(max-width:899px){
+  .hero-info-widget{
+    top:82px;
+    right:14px;
+    width:174px;
+    padding:12px 12px 11px;
+    border-radius:10px;
+  }
+  .widget-eyebrow{font-size:7px}
+  .business-status{font-size:7px;padding:4px 6px}
+  .business-hours-time{font-size:19px;margin-top:8px}
+  .widget-subcopy{font-size:9px}
+  .widget-divider{margin:10px 0 9px}
+  .weather-location{font-size:8px}
+  .weather-main{gap:6px;margin-top:6px;min-height:28px}
+  .weather-symbol{font-size:20px}
+  .weather-temperature{font-size:23px}
+  .weather-description{font-size:9px}
+  .weather-range{font-size:8px;gap:9px;margin-top:5px}
+}
+@media(max-width:767px){
+  .service-center-section{display:block;padding:58px 20px}
+  .service-center-copy h2{font-size:25px!important}
+  .service-intro{font-size:12px}
+  .service-center-map{margin-top:30px;padding:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-slide[data-type="image"].is-active .hero-media,
+  .hero-content.is-revealing{animation:none!important}
+  .hero-slide{transition:opacity .2s ease,visibility .2s ease}
+}

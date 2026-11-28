@@ -828,6 +828,76 @@ function renderEvents() {
 }
 
 
+
+// =========================================================
+// [FUNCTION 00] V44 — 영업시간 / 인천 동춘동 실시간 날씨 위젯
+// 날씨는 Open-Meteo 무료 공개 API를 사용하며 별도 API 키가 필요 없습니다.
+// =========================================================
+function initHeroInfoWidget() {
+  const statusEl = document.getElementById("business-status");
+  const tempEl = document.getElementById("weather-temperature");
+  const descEl = document.getElementById("weather-description");
+  const symbolEl = document.getElementById("weather-symbol");
+  const highEl = document.getElementById("weather-high");
+  const lowEl = document.getElementById("weather-low");
+
+  // 스퀘어원 일반 운영시간 기준: 10:30~22:00 (한국 시간)
+  function updateBusinessStatus() {
+    if (!statusEl) return;
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+    }).formatToParts(new Date());
+    const hour = Number(parts.find(part => part.type === "hour")?.value || 0);
+    const minute = Number(parts.find(part => part.type === "minute")?.value || 0);
+    const nowMinutes = hour * 60 + minute;
+    const isOpen = nowMinutes >= (10 * 60 + 30) && nowMinutes < (22 * 60);
+    statusEl.textContent = isOpen ? "OPEN" : "CLOSED";
+    statusEl.classList.toggle("is-open", isOpen);
+    statusEl.classList.toggle("is-closed", !isOpen);
+  }
+
+  const weatherLabels = {
+    0: ["맑음", "☀"], 1: ["대체로 맑음", "🌤"], 2: ["구름 조금", "⛅"], 3: ["흐림", "☁"],
+    45: ["안개", "🌫"], 48: ["안개", "🌫"],
+    51: ["이슬비", "🌦"], 53: ["이슬비", "🌦"], 55: ["이슬비", "🌧"],
+    56: ["어는 이슬비", "🌧"], 57: ["어는 이슬비", "🌧"],
+    61: ["약한 비", "🌦"], 63: ["비", "🌧"], 65: ["강한 비", "🌧"],
+    66: ["어는 비", "🌧"], 67: ["어는 비", "🌧"],
+    71: ["약한 눈", "🌨"], 73: ["눈", "❄"], 75: ["강한 눈", "❄"], 77: ["싸락눈", "🌨"],
+    80: ["소나기", "🌦"], 81: ["소나기", "🌧"], 82: ["강한 소나기", "🌧"],
+    85: ["눈 소나기", "🌨"], 86: ["강한 눈 소나기", "❄"],
+    95: ["뇌우", "⛈"], 96: ["우박 동반 뇌우", "⛈"], 99: ["강한 뇌우", "⛈"]
+  };
+
+  async function updateWeather() {
+    if (!tempEl || !descEl || !symbolEl) return;
+    // 인천광역시 연수구 동춘동 중심부 좌표
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=37.407&longitude=126.678&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul&forecast_days=1";
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) throw new Error("Weather API request failed");
+      const data = await response.json();
+      const current = data.current || {};
+      const daily = data.daily || {};
+      const code = Number(current.weather_code);
+      const condition = weatherLabels[code] || ["날씨 정보", "☁"];
+      tempEl.textContent = `${Math.round(Number(current.temperature_2m))}°`;
+      descEl.textContent = condition[0];
+      symbolEl.textContent = condition[1];
+      if (highEl && daily.temperature_2m_max?.length) highEl.textContent = `${Math.round(daily.temperature_2m_max[0])}°`;
+      if (lowEl && daily.temperature_2m_min?.length) lowEl.textContent = `${Math.round(daily.temperature_2m_min[0])}°`;
+    } catch (error) {
+      descEl.textContent = "날씨 정보를 불러오지 못했습니다";
+      symbolEl.textContent = "☁";
+    }
+  }
+
+  updateBusinessStatus();
+  updateWeather();
+  window.setInterval(updateBusinessStatus, 60 * 1000);
+  window.setInterval(updateWeather, 30 * 60 * 1000);
+}
+
 // [FUNCTION 01] MAIN — 메인 비주얼 슬라이드
 function renderHero() {
   const slider = document.querySelector("#hero-slider");
@@ -982,6 +1052,12 @@ function renderHero() {
   function scheduleCurrent() {
     stopTimer();
     stopVideo();
+    const heroContent = hero ? hero.querySelector(".hero-content") : null;
+    if (heroContent) {
+      heroContent.classList.remove("is-revealing");
+      void heroContent.offsetWidth;
+      heroContent.classList.add("is-revealing");
+    }
     updateUI();
     const item = slides[current];
     const slide = HERO_SLIDES[current] || {};
@@ -1261,6 +1337,7 @@ function renderHero() {
   document.addEventListener("DOMContentLoaded", function(){
     // 홈페이지 위→아래 순서대로 화면을 초기화합니다.
     renderHero();          // [01] MAIN
+    initHeroInfoWidget();  // [V44] 영업시간 / 동춘동 날씨
     renderEvents();        // [03] EVENT & PROMOTION / [04] BRAND EVENT
     renderBrandCarousel(); // [05] B1 BRAND
     renderQuickLinks();    // [07] MORE SQUARE1

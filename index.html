@@ -14,6 +14,40 @@
 <main id="top">
 <section class="hero" id="hero">
   <div class="hero-slider" id="hero-slider" aria-label="THE GREAT SQUARE1 메인 배너"></div>
+
+  <!-- V44: 메인 우측 상단 영업시간 / 동춘동 날씨 위젯 -->
+  <aside class="hero-info-widget" aria-label="스퀘어원 운영시간 및 날씨">
+    <div class="hero-business-info">
+      <div class="widget-label-row">
+        <span class="widget-eyebrow">스퀘어원 영업시간</span>
+        <span class="business-status" id="business-status">TODAY</span>
+      </div>
+      <strong class="business-hours-time">
+  <span class="time-period">AM</span>
+  <span class="time-number">10:30</span>
+  <i>—</i>
+  <span class="time-period">PM</span>
+  <span class="time-number">22:00</span>
+</strong>
+      <span class="widget-subcopy">연중무휴</span>
+    </div>
+    <div class="widget-divider"></div>
+    <div class="hero-weather-info">
+      <div class="widget-label-row">
+        <span class="widget-eyebrow">DONGCHUN-DONG WEATHER</span>
+        <span class="weather-location">인천 동춘동</span>
+      </div>
+      <div class="weather-main">
+        <span class="weather-symbol" id="weather-symbol" aria-hidden="true">☁</span>
+        <strong class="weather-temperature" id="weather-temperature">--°</strong>
+        <span class="weather-description" id="weather-description">날씨 확인 중</span>
+      </div>
+      <div class="weather-range">
+        <span>최고 <b id="weather-high">--°</b></span>
+        <span>최저 <b id="weather-low">--°</b></span>
+      </div>
+    </div>
+  </aside>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="great-title" id="hero-title">THE GREAT SQUARE1</h1>
@@ -76,6 +110,57 @@
     >
   </picture>
 </div>
+</section>
+
+<!-- V44: 포인트센터 / 사은행사장 B1 이전 안내 -->
+<section class="section service-center-section" id="service-center">
+  <div class="service-center-copy">
+    <p class="eyebrow">SQUARE1 SERVICE CENTER</p>
+    <span class="service-change-label">LOCATION CHANGE</span>
+    <h2>포인트센터 / 사은행사장</h2>
+    <p class="service-intro">기존 1층에서 운영하던 포인트센터와 사은행사장이<br>지하 1층으로 이전하여 새롭게 운영됩니다.</p>
+
+    <div class="service-hours-group">
+      <div class="service-info-block">
+        <span class="service-info-label">POINT CENTER</span>
+        <h3>포인트센터 운영시간</h3>
+        <p>평일 / 주말 / 공휴일 <strong>10:00–22:00</strong></p>
+      </div>
+      <div class="service-info-block">
+        <span class="service-info-label">GIFT EVENT CENTER</span>
+        <h3>사은행사장 운영시간</h3>
+        <p>주말 / 공휴일 <strong>10:00–22:00</strong></p>
+        <small>※ 행사 상황에 따라 조기 종료될 수 있습니다.</small>
+      </div>
+    </div>
+
+    <div class="service-location-block">
+      <h3>위치</h3>
+      <p>지하 1층 <strong>OO 옆</strong></p>
+    </div>
+
+    <div class="service-uses-block">
+      <h3>이용 가능 서비스</h3>
+      <ul>
+        <li>포인트 적립</li>
+        <li>사은행사 참여</li>
+        <li>프로모션 참여</li>
+      </ul>
+    </div>
+    <p class="service-notice">※ 포인트센터 및 사은행사장은 기존 1층에서 지하 1층으로 이전합니다.</p>
+  </div>
+
+  <div class="service-center-map">
+    <div class="service-map-heading">
+      <span>B1 FLOOR MAP</span>
+      <span>LOCATION GUIDE</span>
+    </div>
+    <picture>
+      <source media="(max-width: 767px)" srcset="images/floor-map-mobile.jpg">
+      <img src="images/floor-map-pc.jpg" alt="스퀘어원 지하 1층 안내 도면">
+    </picture>
+    <p class="service-map-caption">지하 1층 포인트센터 / 사은행사장 위치 안내</p>
+  </div>
 </section>
 
 <section class="closing">
